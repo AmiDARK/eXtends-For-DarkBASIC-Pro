@@ -1,0 +1,100 @@
+Rem ****************************************************************************************************
+Function UpdatePlayer( GameSpeed )
+  Rem Get keys to get the direction taken by the ship.
+  YMove = ( UpKey() = 1 ) - ( DownKey() = 1 ) : XMove = ( LeftKey() = 1 ) - ( RightKey() = 1 )
+  Rem Calculate smooth movement on Y Axis (Up/Down)
+  If YMove <> 0.0
+    Player.YSpeed = Player.YSpeed + ( YMove * GameSpeed * 0.50 )
+    If Player.YSpeed < -200 Then Player.YSpeed = -200
+    If Player.YSpeed > 200 Then Player.YSpeed = 200
+   Else
+    If Player.YSpeed <> 0.0
+      YDec = Player.YSpeed / Abs( Player.YSpeed ) : Player.YSpeed = Player.YSpeed - ( YDec * 2 )
+     Endif
+  	Endif
+  Rem Calculate smooth movement on Z Axis (Left/Right)
+  If XMove <> 0.0
+    Player.XSpeed = Player.XSpeed + ( XMove * GameSpeed * 0.50 )
+    If Player.XSpeed < -200 Then Player.XSpeed = -200
+    If Player.XSpeed > 200 Then Player.XSpeed = 200
+   Else
+    If Player.XSpeed <> 0.0
+      XDec = Player.XSpeed / Abs( Player.XSpeed ) : Player.XSpeed = Player.XSpeed - ( XDec * 2 )
+     Endif
+  	Endif
+  Rem Add final movement speed to get new object position.
+  Player.YPos = Player.YPos + ( Player.YSpeed * GameSpeed * 0.00025 )
+  Player.ZPos = Player.ZPos + ( Player.XSpeed * GameSpeed * 0.00025 )
+  Rem Check limits to prevent player's ship from going out of screen.
+  If Player.YPos > 121 Then Player.YPos = 121
+  If Player.YPos < -121 Then Player.YPos = -121
+  If Player.ZPos > 160 Then Player.ZPos = 160
+  If Player.ZPos < 0 Then Player.ZPos = 0
+  Rem Update the player's ship position and rotation
+  Position Object Player.Object, 256.0, Player.YPos, Player.ZPos
+  Rotate Object Player.Object, 0.0, 180.0, WrapValue( 0.0 - ( Player.YSpeed / 5.0 ) )
+  Position Object Player.GlassObject, 256.0, Player.YPos, Player.ZPos
+  Rotate Object Player.GlassObject, 0.0, 180.0, WrapValue( 0.0 - ( Player.YSpeed / 5.0 ) )
+  Rem Updating Reactor's particles
+  P3D Set Primitive Mode Player.Particle, 0.0, 0.001, 0.5
+  P3D Position Emitter Player.Particle, 256.0, Player.Ypos + 40, Player.ZPos + 20
+  P3D Update Particles : B3D Update Billboards
+  Rem Updating virtual light
+  L3D Position Virtual Light Player.VLight, 256.0, Player.YPos, Player.ZPos + 40
+  Rem Updating the score.
+  Player.Score = Player.Score + ( GameSpeed * 0.01 * Player.ScrollSpeed )
+  If Player.OldScore <> Player.Score
+    XGui Set Gadget Text 2, Str$( Int( Player.Score ) ) : Rem Update Gadget #2 To display the actual score.
+    Player.OldScore = Player.Score
+   Endif
+ EndFunction
+Rem ****************************************************************************************************
+Function ClearPlayer()
+  Player.Object = B3D Delete Object( Player.Object )
+  Player.Particle = P3D Delete Particle( Player.Particle )
+  Player.PTexture = IMG Delete Image( Player.PTexture )
+  Player.Explosion = B3D Delete Object( Player.Explosion )
+  Player.ETexture = IMG Delete Image( Player.ETexture )
+  Player.GameOverImage = IMG Delete Image( Player.GameOverImage )
+  Player.EXPSound = SND Delete Sound( Player.EXPSound )
+ EndFunction
+Rem ****************************************************************************************************
+Function SetupPlayer()
+  Rem Create the player's ship and setup default appearance.
+  Player.Object = B3D Load Object( "Medias\ship.x" )
+  Player.GlassObject = B3D Load Object( "Medias\ship.x" )
+  Player.EXPSound = SND Load Sound( "Medias\Explosion.wav" )
+  Scale Object Player.Object, 20.0, 20.0, 20.0
+  Fade Object Player.Object, 99
+  Rotate Object Player.Object, 0.0, 180.0, 0.0
+  Set Object Collision Off Player.Object
+  Scale Object Player.GlassObject, 20.0, 20.0, 20.0
+  Fade Object Player.GlassObject, 99
+  Rotate Object Player.GlassObject, 0.0, 180.0, 0.0
+  Set Object Collision Off Player.GlassObject
+  Ghost Object On Player.GlassObject, 1
+  Player.ZPos = 0.0 : Player.YPos = 0.0
+  Position Object Player.Object, 256.0, Player.YPos, Player.ZPos
+  Set Object Cull Player.Object, 0
+  Rem Create a particle from customized flames preset for reactors burn...
+  Position Object Player.GlassObject, 256.0, Player.YPos, Player.ZPos
+  Set Object Cull Player.GlassObject, 1
+  Player.PTexture = IMG Load Image( "Medias\Flame.bmp" )
+  Player.Particle = P3D Add Particle( 64, Player.PTexture, 32 )
+  P3D Set Particle Area Player.Particle, 32, 64, 32
+  P3D Set As Flames Particle Player.Particle
+  P3D Set Primitive Mode Player.Particle, 0.0, 0.01, 4.0
+  Player.GameOverImage = IMG Load Image( "Medias\GameOver.Bmp" )
+  Rem On crée l'image pour l'explosion et la plain pour l'afficher
+  Player.ETexture = IMG Load Image( "Medias\Explosion.bmp" )
+  Player.Explosion = B3D Make Object Plain( 48.0*3.0, 12.8*4.0 )
+  Position Object Player.Explosion, 0.0, -64.0, 0.0
+  Ghost Object On Player.Explosion
+REM  SET OBJECT Object Number, Wire, Transparent, Cull, Filter, Light, Fog, Ambient
+  Set Object Player.Explosion, 1, 1, 1, 1, 0, 0, 0
+  Texture Object Player.Explosion, Player.ETexture
+  Scale Object Texture Player.Explosion, 0.1, 1.0
+  B3D Object To Billboard Player.Explosion
+  Rem We create the virtual light to use for reactors particles ...
+  Player.VLight = L3D Add Virtual Light( 256.0, Player.YPos, Player.ZPos, 160, 255, 255, 128, 0 )
+ EndFunction

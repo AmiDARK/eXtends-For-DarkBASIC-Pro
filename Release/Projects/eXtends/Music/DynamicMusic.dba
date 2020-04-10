@@ -1,0 +1,70 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Music Support Demo
+Rem
+Sync On : Sync Rate 60
+AutoCam Off
+Rem
+  Repeat   
+    D$ = Inkey$()
+    Rem Depending on which key the user press, we create an object.
+    Select D$
+      Case "q"
+        If Object1 = 0
+    	    Object1 = MSC Load Music( "Musics\Chronoscape.mid" )
+         Endif
+       EndCase
+      Case "w"
+        If Object2 = 0
+    	    Object2 = MSC Load Music( "Musics\Hidden Fury.mid" )
+         Endif
+       EndCase
+      Case "e"
+        If Object3 = 0
+    	    Object3 = MSC Load Music( "Musics\Precipice.mid" )
+         Endif
+       EndCase
+      Case "r"
+        If Object4 = 0
+    	    Object4 = MSC Load Music( "Musics\Splash Down.mid" )
+         Endif
+       EndCase
+      Case "t"
+        If Object5 = 0
+    	    Object5 = MSC Load Music( "Musics\Traxxion.mid" )
+         Endif
+       EndCase
+      Case "a" : Object1 = MSC Delete Music( Object1 ) : EndCase
+      Case "s" : Object2 = MSC Delete Music( Object2 ) : EndCase
+      Case "d" : Object3 = MSC Delete Music( Object3 ) : EndCase
+      Case "f" : Object4 = MSC Delete Music( Object4 ) : EndCase
+      Case "g" : Object5 = MSC Delete Music( Object5 ) : EndCase
+     EndSelect
+    Cls
+    Set Cursor 0, 0
+    Print "Use Q up to T to load Music"
+    Print "Use A up to G to delete them"
+    Print "use Z up to B to play Music 1 up to 5"
+    Print "Music 1 to 5 Exist ?"
+    For XLoop = 1 to 5
+      Print Music Exist( XLoop )
+     Next XLoop
+    D$ = Inkey$()
+    If d$ = "z" or d$ = "x" or d$ = "c" or d$ = "v" or d$ = "b"
+      If LastMusic > 0
+        If Music Exist( LastMusic ) = 1 Then Stop Music LastMusic
+       Endif
+      if d$ = "z" And Music Exist( 1 ) = 1 : Play Music 1 : LastMusic = 1 : Endif
+      if d$ = "x" And Music Exist( 2 ) = 1 : Play Music 2 : LastMusic = 2 : Endif
+      if d$ = "c" And Music Exist( 3 ) = 1 : Play Music 3 : LastMusic = 3 : Endif
+      if d$ = "v" And Music Exist( 4 ) = 1 : Play Music 4 : LastMusic = 4 : Endif
+      if d$ = "b" And Music Exist( 5 ) = 1 : Play Music 5 : LastMusic = 5 : Endif
+     Endif
+    Sync
+   Until SpaceKey() = 1 
+End

@@ -1,0 +1,52 @@
+
+STRINGTABLE
+{
+1, 	"DSK Initialized[%L%DSK_Init%"
+2, 	"DSK Clear%0%DSK_CloseAllFiles%"
+3, 	"DSK Get Count[%L%DSK_Count%"
+4, 	"DSK Close File[%LL%DSK_CloseFile"
+5, 	"DSK Open To Read[%LS%DSK_DynamicOpenToRead%FileName$"
+6, 	"DSK Open To Write[%LS%DSK_DynamicOpenToWrite%FileName$"
+7, 	"DSK Add Highscore%LSL%DSK_AddHighScore%"
+8, 	"DSK Get Highscore[%LL%DSK_GetHighScore%"
+9, 	"DSK Get HighScore Name$[%SL%DSK_GetHighScoreName%"
+10, 	"DSK Get HighScore Level[%LL%DSK_GetHighScoreLevel%"
+11, 	"DSK Save HighScore%S%DSK_SaveHighScore%FileName$"
+12, 	"DSK Load HighScore%S%DSK_LoadHighScore%FileName$"
+13, 	"DSK Clear HighScore%0%DSK_ClearHighScore%"
+14, 	"DSK File Exist[%LS%MyFileExist%FileName$"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProFileeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

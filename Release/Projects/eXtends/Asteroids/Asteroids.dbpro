@@ -1,0 +1,80 @@
+; **** Dark BASIC Professional Project File ****
+; **** Written by Synergy Editor ****
+version=DBP1.00
+project name=Asteroids - DBProExtends Demo
+
+; **** source file information ****
+main=Asteroids.dba
+LineMain=0
+include1=Includes_Player.dba
+LineInclude1=0
+include2=Includes_Asteroids.dba
+LineInclude2=0
+include3=Includes_XGUISystem.dba
+LineInclude3=0
+include4=Includes_Compiler.dba
+LineInclude4=0
+include5=Includes_RealTimeSkySystem.dba
+LineInclude5=0
+include6=Includes_Collisions.dba
+LineInclude6=0
+
+; **** Executable Information  ***
+; build types: exe, media, installer, alone
+executable=Asteroids.exe
+build type=exe
+; ** Media file compression **
+compression=YES
+
+; ** Media file encryption **
+encryption=NO
+; ** Display the card options screen window? **
+card options window=NO
+
+; **** debugger information ****
+; If the editor sets this to yes, it is running in debug mode
+CLI=NO
+CommandLineArguments=
+
+; **** display mode information ****
+app title=Asteroids - DBProExtends Demo
+
+; graphics mode options: fullscreen, window, desktop, fulldesktop, hidden
+graphics mode=fullscreen
+fullscreen resolution=640x480x32
+
+; arbitrary sizes are valid for windowed mode
+window resolution=800x600
+
+; **** External Files Information ****
+
+; **** Media ****
+; Example entries: media1=graphics\*.jpg
+media root path=G:\Odyssey-Creators\Produits - PC - TheGameCreators\DarkBASIC Professional PlugIN - eXtends\eXtends [Full1.5-UK]\Projects\eXtends\Asteroids\
+
+; **** Icons ****
+
+; **** Cursors ****
+
+; **** Version Info ****
+VerComments=
+VerCompany=Frédéric Cordier
+VerFileDesc=Demonstration
+VerFileNumber=v1.0
+VerInternal=v1.0
+VerCopyright=Frédéric Cordier
+VerTrademark=
+VerFilename=
+VerProduct=
+VerProductNumber=v1.0
+
+; **** To Do ****
+
+; **** Comments ****
+comments1=
+
+; **** Advanced (setup.ini) configuration ****
+RemoveSafetyCode=NO
+SafeArrays=YES
+LocalTempFolder=NO
+ExternaliseDLLS=NO

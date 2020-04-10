@@ -1,0 +1,68 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Basic 2D - Chat System Demonstration
+Rem
+  Sync On : Sync Rate 0
+  Cls : Set Cursor 0, 0
+  Print "Choose which skin to use :"
+  Print "1 - Ancient Style"
+  Print "2 - RPG Style"
+  Print "3 - Granit Style" : Sync
+  Input Skin
+  Select Skin
+    Case 1 : Skin$ = "AncientBlue.skin" : EndCase
+    Case 2 : Skin$ = "FFRpg_Style.skin" : EndCase
+    Case 3 : Skin$ = "granit.skin" : EndCase
+  	EndSelect
+  SCORE = IMG Load Image( "graphics\Score.jpg" )
+  CHATGRAFX = IMG Load Image( "graphics\ChatInput.jpg" )
+Rem
+Rem
+  If XGUI SETUP( Skin$ ) = 1
+    XGui Enable Alpha Window
+    XFont Setup Font "Font08x08.bmp" , 1 , 8, 32 , 0
+    XGui Set Text Transparent
+    Rem We must create a window firstly.
+    XGUI CREATE WINDOW 1 , 320 , 240
+    XGUI POSITION WINDOW 1 , 0 , 0
+    XGui Window Use XFont 1, 1
+    XGui Set Alpha 1, 127
+    XGui Set Window Title 1, "XGui Chat Window Output"
+    Rem Now we setup the chat window and the chat gadget.
+    Rem Chat dialogue gadget.
+    XGUI ADD GADGET TEXT 1 , 1 , 4 , 4 , 304, 188, ""
+    XGui Set Dialog Gadget 1
+    Rem Chat Text Input gadget
+    XGui Add Gadget Combi 1, 2, 0, 208, 304, 16, CHATGRAFX, ""
+    XGui Set Chat Gadget 2
+    Rem Now we choose which key to use to launch chat input.
+    XGui Set Chat ScanCode 15 : Rem Use TabKey to launch Chat.
+    Sync
+    XGUI UPDATE : Rem Update all to create XGUI and gadgets.
+    Rem Display informations text in chat window.
+    XGui Send Dialog "DarkBASIC Professional Extends Pack"
+    XGui Send Dialog "Chat System demonstration"
+    XGui Send Dialog "Use TAB key to enter dialog in chat"
+    XGui Send Dialog "Use SpaceKey to quit"
+    XGui Send Dialog " "
+
+    XFont Set Current Bitmap 0
+    Repeat
+      Cls : Set Current Bitmap 0
+      XFont Set Cursor 0 , 0 : XFont Print "FPS : " + Str$( Screen Fps() )
+      If XGui Chat Active() = 1 Then XFont Print "You are currently using the chat input system"
+      XGUI UPDATE
+      Sync
+     Until SpaceKey() = 1 And XGui Chat Active() = 0
+    XGUI CLEAR
+   Else
+    Exit Prompt "Cannot Initialize Choosen XGUI", "DarkBASIC Professional Extends PlugIN Sample"
+   Endif
+  SCORE = IMG Delete Image( SCORE )
+  CHATGRAFX = IMG Delete Image( CHATGRAFX )
+ End

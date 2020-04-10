@@ -1,0 +1,25 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic File Support Demo
+Rem
+Sync On : Sync Rate 0
+AutoCam Off
+Rem
+Rem Firstly we must create the binary file.
+Rem Now we load it and open a file.
+Repeat
+  FICHIER = DSK Open To Read( "Bin\Text.asc" )
+  Read String FICHIER, EXTRACTED$
+  FICHIER = DSK Close File( FICHIER )
+  CLS
+  Set Cursor 0, 0 : Print "String Extracted from file :"
+  Print EXTRACTED$
+  Sync
+ Until SpaceKey() = 1
+End
+

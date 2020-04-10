@@ -1,0 +1,41 @@
+; **** DarkBASIC Professional Project ****
+; Created by CodeSurge IDE
+version=DBP1.00
+project name=Pixel Collisions System 4 Sprites
+
+; ****Source file information****
+main=SpritesCollisions-SnailGame.dba
+final source=_Temp.dbsource
+
+;***Executable filename***
+executable=SnailGame.exe
+build type=exe
+
+compression=YES
+encryption=NO
+card options window=NO
+
+; Debugger
+CLI=NO
+
+; *****Display Settings*****
+app title=
+graphics mode=fullscreen
+fullscreen resolution=
+window resolution=320x240
+
+
+;*****Media files, icons, cursors*****
+media root path=E:\Odyssey-Creators\Produits\DarkBASIC Professional PlugIN - eXtends\eXtends [Full1.4-UK]\Projects\eXtends\Sprites\
+
+;****Version Information****
+VerComments=
+VerCompany=
+VerFileDesc=
+VerFileNumber=
+VerInternal=
+VerCopyright=
+VerTrademark=
+VerFilename=
+VerProduct=
+VerProductNumber=

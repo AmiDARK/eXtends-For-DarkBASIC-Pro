@@ -1,0 +1,29 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : DOT 3 Generation...
+`
+` Load original image.
+Sync On : Sync Rate 60
+
+IMG_Source = IMG Load Image( "graphics\sol2.bmp", 0 )
+
+Sync
+
+IMG_Target = IMG Generate DOT3( IMG_Source, 5, 5 )
+
+  B3D_Object = B3D Make Object Sphere( 64 )
+  Texture Object B3D_Object, IMG_Source
+  set Bump mapping on B3D_Object , IMG_Target ` use modified image as normal map
+  Make Light 1
+
+  Repeat
+    If ShiftKEY() = 1 Then Paste Image IMG_Target, 0, 0 
+    Rotate Object B3D_Object, WrapValue( Object Angle X( B3D_Object ) - MouseMoveY() ), WrapValue( Object Angle Y( B3D_Object ) - MouseMoveX() ), 0
+    sync
+   Until Inkey$() <> ""
+End

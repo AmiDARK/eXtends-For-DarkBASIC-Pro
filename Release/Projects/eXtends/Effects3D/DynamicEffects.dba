@@ -1,0 +1,24 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Effects Object Support Demo
+Rem
+Sync On : Sync Rate 60
+Color Backdrop Rgb( 0, 0, 0 )
+
+Object = B3D Load Object( "Medias\X4Crate.x" )
+Effect = E3D Load Effect( "Medias\Parallax.fx", 1 )
+Set Object Effect Object, Effect
+Move Camera 70
+Rem
+  Repeat
+    Rotate Object Object, WrapValue( Object Angle X( Object ) + 0.1 ), WrapValue( Object Angle Y( Object ) + 0.05 ), 0
+    Sync
+   Until SpaceKey() = 1 
+End
+Object = B3D Delete Object( Object )
+Effect = E3D Delete Effect( Effect )

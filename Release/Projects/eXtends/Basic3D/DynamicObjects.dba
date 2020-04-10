@@ -1,0 +1,86 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic 3D Object Support Demo
+Rem
+Sync On : Sync Rate 60
+AutoCam Off
+Rem
+  Repeat
+    D$ = Inkey$()
+    Rem Depending on which key the user press, we create an object.
+    Select D$
+      Case "q"
+        If Object1 = 0
+    	    Object1 = B3D Make Object Box( 18, 24, 30 )
+    	    Position Object Object1, -96, 0, 0
+          Color Object Object1, Rgb( 255, 0, 0 )
+         Endif
+       EndCase
+      Case "w"
+        If Object2 = 0
+          Object2 = B3D Make Object Cone( 30 )
+          Position Object Object2, -64, 0, 0
+          Color Object Object2, Rgb( 0, 255, 0 )
+         Endif
+       EndCase
+      Case "e"
+        If Object3 = 0
+          Object3 = B3D Make Object Plain( 30, 30 )
+          Position Object Object3, -32, 0, 0
+          Color Object Object3, Rgb( 0, 0, 255 )
+         Endif
+       EndCase
+      Case "r"
+        If Object4 = 0
+          Object4 = B3D Make Object Cylinder( 30 )
+          Position Object Object4, 0, 0, 0
+          Color Object Object4, Rgb( 255, 255, 0 )
+         Endif
+       EndCase
+      Case "t"
+        If Object5 = 0
+          Object5 = B3D Make Object Sphere( 30 )
+          Position Object Object5, 32, 0, 0
+          Color Object Object5, Rgb( 0, 255, 255 )
+         Endif
+       EndCase
+      Case "y"
+        If Object6 = 0
+          Object6 = B3D Make Object Cube( 30 )
+          Position Object Object6, 64, 0, 0
+          Color Object Object6, Rgb( 0, 255, 255 )
+         Endif
+       EndCase
+      Case "u"
+        If Object7 = 0
+        	 Object7 = B3D Load Object( Get Dir$() + "\Objects\ship.x", 1 )
+        	 Position Object Object7, 96, 0 , 0
+        	 Scale Object Object7, 20, 20, 20
+         Endif
+       EndCase
+      Case "a" : Object1 = B3D Delete Object( Object1 ) : EndCase
+      Case "s" : Object2 = B3D Delete Object( Object2 ) : EndCase
+      Case "d" : Object3 = B3D Delete Object( Object3 ) : EndCase
+      Case "f" : Object4 = B3D Delete Object( Object4 ) : EndCase
+      Case "g" : Object5 = B3D Delete Object( Object5 ) : EndCase
+      Case "h" : Object6 = B3D Delete Object( Object6 ) : EndCase
+      Case "j" : Object7 = B3D Delete Object( Object7 ) : EndCase
+     EndSelect
+    Set Cursor 0, 0
+    Print "Objects 1 to 7 Exist ?"
+    Rem Objects Exists ?
+    For XLoop = 1 to 7
+      Print Object Exist( XLoop )
+     Next XLoop
+    Rem Object Number in order.
+    Print Object1, " / " , Object2, " / " , Object3, " / ", Object4, " / ", Object5, " / ", Object6, " / ", Object7
+    Position Camera 0, 0, -160
+    Rotate Camera 0, 0, 0
+    Sync
+   Until SpaceKey() = 1 
+End

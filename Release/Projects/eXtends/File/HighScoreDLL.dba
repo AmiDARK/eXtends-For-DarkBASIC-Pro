@@ -1,0 +1,28 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : HighScores Support Demo
+Rem
+Sync On : Sync Rate 60
+  Rem Teste la fonction d'envoi de données ...
+  DSK Clear HighScore
+  DSK Load HighScore "Bin\HighScores.dat"
+  rem Load HighScore
+  DSK Add HighScore Rnd( 150000 ), "Freddix1" , 7
+  DSK Add HighScore Rnd( 150000 ), "Freddix2" , 15
+  DSK Add HighScore Rnd( 150000 ), "Freddix3" , 10
+  DSK Add HighScore Rnd( 150000 ), "Freddix4" , 12
+  DSK Save HighScore "Bin\HighScores.dat"
+  Repeat
+    Cls
+    Set Cursor 0 , 0
+    For XLoop = 1 to 20
+      Print XLoop , " / " , DSK Get HighScore( XLoop ) , " / " , DSK Get HighScore Name$( XLoop ) , " / " , DSK Get HighScore Level( XLoop )
+     Next XLoop
+    Sync
+   Until SpaceKey() = 1
+End

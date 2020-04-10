@@ -1,0 +1,64 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Bitmaps Support Demo
+Rem
+Sync On : Sync Rate 60
+AutoCam Off
+Rem
+  Repeat   
+    D$ = Inkey$()
+    Rem Depending on which key the user press, we create an object.
+    Select D$
+      Case "q"
+        If Object1 = 0
+    	    Object1 = BMP Load Bitmap( "Graphics\Bitmap01.jpg" ) : Sync
+         Endif
+       EndCase
+      Case "w"
+        If Object2 = 0
+    	    Object2 = BMP Load Bitmap( "Graphics\Bitmap02.jpg" ) : Sync
+         Endif
+       EndCase
+      Case "e"
+        If Object3 = 0
+    	    Object3 = BMP Load Bitmap( "Graphics\Bitmap03.jpg" ) : Sync
+         Endif
+       EndCase
+      Case "r"
+        If Object4 = 0
+    	    Object4 = BMP Load Bitmap( "Graphics\Bitmap04.jpg" ) : Sync
+         Endif
+       EndCase
+      Case "t"
+        If Object5 = 0
+    	    Object5 = BMP Load Bitmap( "Graphics\Bitmap05.jpg" ) : Sync
+         Endif
+       EndCase
+      Case "a" : Object1 = BMP Delete Bitmap( Object1 ) : EndCase
+      Case "s" : Object2 = BMP Delete Bitmap( Object2 ) : EndCase
+      Case "d" : Object3 = BMP Delete Bitmap( Object3 ) : EndCase
+      Case "f" : Object4 = BMP Delete Bitmap( Object4 ) : EndCase
+      Case "g" : Object5 = BMP Delete Bitmap( Object5 ) : EndCase
+     EndSelect
+    Set Current Bitmap 0
+    Cls
+    Set Cursor 0, 0
+    Print "Use Q up to T to create bitmaps"
+    Print "Use A up to G to delete them"
+    Print "Bitmap 1 to 5 Exist ?"
+    For XLoop = 1 to 5
+    	Existe = Bitmap Exist( XLoop )
+      Print "Bitmap #0" + Str$( XLoop ) + " : " , Existe
+      If Existe = 1
+        XPos = 32 + ( XLoop * 96 ) : YPos = 64
+        Copy Bitmap XLoop, 0, 0, Bitmap Width( XLoop )-1, Bitmap Height( XLoop )-1, 0, XPos, YPos, XPos+64, YPos+48
+       Endif
+     Next XLoop
+    Sync
+   Until SpaceKey() = 1 
+End

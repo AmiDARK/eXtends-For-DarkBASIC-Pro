@@ -1,0 +1,42 @@
+
+STRINGTABLE
+{
+1, 	"EXT Initialized[%L%ExtInitialized%"
+2,    "EXT Set Debug Mode%L%SetDebugMode%DebugFLAG"
+3,    "EXT Get Debug Mode[%L%GetDebugMode%"
+4,    "Initialize eXtends[%LSS%Initialize_eXtends%UserNAME$, UserCODE$"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

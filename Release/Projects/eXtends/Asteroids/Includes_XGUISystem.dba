@@ -1,0 +1,25 @@
+Rem ****************************************************************************************************
+Function SetupGUI()
+  Rem Load the 16x16 pixels wide bitmap font.
+  XFont Setup Font "Font16x16.bmp" , 1 , 16 , 32 , 0
+  XFont Setup Font "Font08x08.bmp" , 2 , 8 , 32 , 0
+  XGui Set Text Transparent
+  XFont Auto Return Mode 0
+  Rem Load the Graphic User Interface for the demo.
+  XGui.Loaded = XGUI SETUP( "AncientBlue.skin" )
+  XGui Enable Alpha Window : Rem Allow windows to be ghosted.
+  Rem Create the windows that will display the score.
+  XGUI CREATE WINDOW 1 , 144 , 64
+  XGui Set window Title 1, "Player 1"
+  XGUI POSITION WINDOW 1 , 8 , 0
+  XGui Window Use XFont 1, 1
+  XGui.Score = IMG Load Image( "Medias\Score.jpg" )
+  XGUI ADD GADGET 1 , 1 , 32 , 0 , 64 , 16 , XGui.Score
+  XGui Set Alpha 1, 90
+  XGui Add Gadget Text 1 , 2 , 0 , 20 , 128 , 16 , "0" 
+ EndFunction
+Rem ****************************************************************************************************
+Function ClearGUI()
+  XFont Clear All Fonts
+  XGui Clear
+ EndFunction

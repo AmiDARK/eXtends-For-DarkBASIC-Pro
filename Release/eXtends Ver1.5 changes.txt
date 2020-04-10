@@ -1,0 +1,138 @@
+Odyssey-Creators - DarkBASIC Professional eXtends plugin.
+
+FIX/Changes on version 1.5 :
+----------------------------
+Lights :
+- Fixed a bug in the light color calculation on custom lights modes.
+- Added function “=L3D Get True Light Intensity(LightID)” to return the amplitude of the displayed light
+- Lights halos are now affected by the real-time light intensity changes.
+
+Sprites :
+- Sprites collisions now handle : Rotation, Scaling, Stretching, Mirroring, Flipping, animation.
+- WARNING : Sprite Collision is not 100% accurate on rotated/scaled/stretched sprites.
+
+Basic 2D :
+- Fixed a bug in the XGUI SET GADGET TEXT command that can cause CRASHS.
+- Internal function referencies list rebuilded.
+- References names using Sprites/Images/Bitmap changed to avoid conflict.
+
+
+Miscellaneous :
+- Modified the plugin to handle both French/English version.
+- Modified the string i/o method to avoid memory leak and random crashes.
+
+Odyssey-Creators informations :
+-------------------------------
+Odyssey-creators website : http://www.odyssey-creators.com
+technical support : support@odyssey-creators.com
+requests : fred@odyssey-creators.com
+
+
+eXtends History:
+-----------------
+
+FIX/Changes on version 1.4 :
+----------------------------
+Image:
+- Fixed a bug in the WOBBLE imageID return value.
+- Changed DLL names to make DLL dependencies definition work
+- Added internal function for DarkBASIC Professional compiler dependencies detection.
+- Fixed the RealTimeSkySystem bug related to sun and moon sizes and position when scaling sky system.
+- No more need to use NULL = EXT Initialized() in your development source codes.
+- No more need to make manual compiler includes to avoir crashes.
+- Updated all samples to fit eXtends 1.4 changes
+
+KNOWN ISSUES :
+- I was not able to make PNG support 100% compatible with a game environment. if you want to avoid getting problems with transparencies and zbuffer, simply use BMP images for RTS Sky System.
+
+FIX/Changes on version 1.3 :
+----------------------------
+General:
+- Added 2 new RTSkyboxes.
+- Improved dynamic media handler for all commands-sets available in the plugin.
+- Improved string handling to prevent some random crashes to happen.
+Basic2D:
+- Added XGui Mipmap Mode command informations.
+Basic3D:
+- Fixed B3D Get Objects Distance( Object1, Object2 ) bug.
+Effects3D:
+- Fixed command E3D Initialized()
+RTSkySystem :
+- Fixed the RTS Set Seconds "function not found" bug
+- Fixed the problem with ZBuffer that cause some objects of the sky to disappear under some circumstancies.
+- For ZBuffer reasons, RTSkySystem must be the last thing to be loaded to prevent conflit with other objects and unexpected problems.
+- Fixed the RTS Set Auto Zoom crash.
+VECTORS:
+- Add Vector4 command : Result = V3D MAKE VECTOR4()
+- Add Vector4 command : Null = V3D Delete Vector4(Vector4 Number)
+- Add Vector3 command : Result = V3D MAKE VECTOR3()
+- Add Vector3 command : Null = V3D Delete Vector3(Vector3 Number)
+- Add Vector2 command : Result = V3D MAKE VECTOR2()
+- Add Vector2 command : Null = V3D Delete Vector2(Vector2 Number)
+MEMBLOCKS:
+- add New memblock command : MBC Paste Image Memblock Source, X, Y, Width, Height, Memblock Target, X, Y
+- add New memblock command : MBC Paste Image Memblock Source, Memblock Target, X, Y
+HELP:
+-Updated help to fit upgrade 1.3 changes.
+
+FIX/Changes on version 1.2 :
+----------------------------
+General :
+- Compiled under PB4 so, DLL are smaller.
+- SAMPLES links fixed.
+- Fixed keyword.ini: XGui Add Gadget Text
+- Fixed some help errors.
+Basic2D:
+- XGui now support skins with different texture size.
+- XGui may support PNG transparency (All Grab/Paste/Sprite command are optimized to retain PNG transparency settings) must use SET BITMAP FORMAT 21 at beginning to make things work correctly.
+- XGui Chat text can now use DarkBASIC Professional's font.
+Basic3D :
+- Fixed command B3D Make Object From Limb(ObjectID)
+IMAGE :
+- Added STATIC image load compatible with Dynamic handler.
+- Added CAMERA TO IMAGE commands
+Light3D:
+- Added new command : L3D SET VIRTUAL LIGHT HALO LightID, HaloImageID
+- Added new command : L3D Set Virtual Fixed Light LightID : Make Static light
+- Added new command : L3D Set Virtual Flame Light LightID : Make light act like a flame light
+- Added new command : L3D Set Virtual Pulse Light LightID : Make light act like a pulse light
+- Added new command : L3D Set Virtual Flash Light LightID : Make light act like a flashs light
+RTSkySystem :
+- Fixed the sun transparency issue
+- Added support for PNG files and transparency. Warning, using PNG files force RTS to use ZBuffer commands (disable zwrite, zdepth) and it can cause some graphics glitches/problems...
+- Added new command : RTS Set Auto Zoom ZOOMFACTOR# : change the size of a RTSkybox. Must be used before RTSkyBox Setup.
+
+FIX/Changes on version 1.1 :
+----------------------------
+General :
+- Updated all sample to use english keyboard instead of french one.
+- Updated the help files to handle all available commands
+- Add EXT Initialized() HELP file and information in INTRODUCTION help.
+- Updated the EDITOR/KEYWORDS/DBProExtends.Ini to handle all commands names.
+- Updated some HELP pages to give correct informations.
+- Reorganized project drawer to fit to TGC needs (changed what did broke HTML links. Now fixed)
+- Added new plugin DLL : DBProMesh3DExtends.dll
+Basic2D:
+- Chat system now handle english keyboard instead of french one.
+- Fixed the windows display priority bug.
+- Changed Alpha from 75 to 224 in XGui demo to make it brighter.
+- Removed flag to select chat window in XWindow Create Window command : XWindow Create Window WindowNumber, Width, Height
+- Use : XGui Set Dialog Gadget To output chat texts in a text/combi gadget.
+- Use : XGui Set Chat Gadget to output entering chat text in a text/combi gadget.
+- Fixed the top-left windows border bug.
+Basic3D:
+- Added new sample to test Dynamic Loading speed with various amount of objects (Performance test)
+Images :
+- Fix the crash with DynamicImages sample by disabling Compress Media option.
+Mesh3D:
+- 5 New Commands added : M3D Initialized / M3D Load Mesh / M3D Delete Mesh / M3D Make Mesh From Object / M3D Make Mesh From Memblock
+- Added HELPS files for Mesh3D commands set.
+Particles3D:
+- Fixed the camera position and angle in Fireball particle demo.
+Sprites:
+- Perfect Sprite Collision now handle Scaled & Rotated sprites. Warning; with rotated, scaled sprites, collision is 99% perfect due to Cos/Sin calculation approximation.
+RTSkySystem:
+- Added commands RTS Set Day, RTS Set Hour, RTS Set Minutes, RTS Set Seconds, RTS Set Time Expansion
+- Fixed the "dark borders" problem with sun halos.
+
+

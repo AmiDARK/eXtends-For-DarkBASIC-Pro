@@ -1,0 +1,57 @@
+Rem ****************************************************************************************************
+Function UpdateAsteroids( GameSpeed As Float )
+  Rem Choose how many asteroids will be calculated (depending on player score)
+  AsteroidsCount = 5 + ( Player.Score / 200 )
+  If AsteroidsCount > 20 Then AsteroidsCount = 20
+  Rem Update all choosen asteroids.
+  For XLoop = 1 to AsteroidsCount
+    Asteroids( Xloop ).ZPos = Asteroids( Xloop ).ZPos + ( 0.1 * GameSpeed * Player.ScrollSpeed )
+    Rem Destroy asteroid to create a new one.
+    If Asteroids( XLoop ).ZPos > 256
+      Asteroids( XLoop ).Zpos = -256
+      Asteroids( Xloop ).YPos = Rnd( 320 ) - 160.0
+      Asteroids( XLoop ).Active = 1   
+      Position Object Asteroids( Xloop ).Object, 256, Asteroids( XLoop ).Ypos, Asteroids( XLoop ).Zpos
+     Endif
+    If Asteroids( XLoop ).Active = 1
+      Asteroids( XLoop ).XAngle = WrapValue( Asteroids( XLoop ).XAngle + Asteroids( XLoop ).XRot ) 
+      Asteroids( XLoop ).YAngle = WrapValue( Asteroids( XLoop ).YAngle + Asteroids( XLoop ).YRot ) 
+      Asteroids( XLoop ).ZAngle = WrapValue( Asteroids( XLoop ).ZAngle + Asteroids( XLoop ).ZRot )
+      Position Object Asteroids( Xloop ).Object, 256, Asteroids( XLoop ).Ypos, Asteroids( XLoop ).Zpos
+      Rotate Object Asteroids( Xloop ).Object, Asteroids( Xloop ).Xangle, Asteroids( XLoop ).Yangle, Asteroids( XLoop ).ZAngle
+     Endif
+   Next XLoop
+ EndFunction
+Rem ****************************************************************************************************
+Function ClearAsteroids()
+  For XLoop = 20 To 1 Step -1
+  	 Asteroids( 1 ).Object = B3D Delete Object( Asteroids( 1 ).Object )
+   Next XLoop
+ EndFunction
+Rem ****************************************************************************************************
+Function SetupAsteroids()
+  Rem Load master object.
+  If Asteroids( 1 ).Object = 0
+    Asteroids( 1 ).Object = B3D Load Object( "Medias\Asteroid.X" )
+   Endif
+  Rem Make Clones [Faster than 32 loads ...]
+  For XLoop = 2 to 20
+    If Asteroids( XLoop ).Object = 0
+    Asteroids( XLoop ).Object = B3D Instance Object( Asteroids( 1 ).Object )
+REM    Asteroids( XLoop ).Object = B3D Load Object( "Medias\Asteroid.X" )
+     Endif
+   Next XLoop
+  Rem Setup default asteroids appearance.
+  For XLoop = 1 to 20
+    Scale Object Asteroids( XLoop ).Object, 50.0, 50.0, 50.0
+    Fade Object Asteroids( Xloop ).Object, 199
+    Set Object Asteroids( XLoop ).Object, 1, 1, 1, 1, 1, 1, 1
+    Set Object Collision Off Asteroids( XLoop ).Object
+    Asteroids( Xloop ).XAngle = Rnd( 359 ) : Asteroids( Xloop ).YAngle = Rnd( 359 )
+    Asteroids( Xloop ).ZAngle = Rnd( 359 )
+    Asteroids( Xloop ).XRot = Rnd( 100 ) / 500.0 : Asteroids( Xloop ).YRot = Rnd( 100 ) / 500.0
+    Asteroids( Xloop ).ZRot = Rnd( 100 ) / 500.0
+    Asteroids( XLoop ).ZPos = -256 - Rnd( 512 )
+    Position Object Asteroids( Xloop ).Object, -64.0, -64.0, 0.0
+   Next XLoop
+ EndFunction

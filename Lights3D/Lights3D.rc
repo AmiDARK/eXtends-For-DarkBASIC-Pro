@@ -1,0 +1,69 @@
+
+STRINGTABLE
+{
+1, 	"L3D Initialized[%L%L3D_Init%"
+2, 	"L3D Set Control Camera%L%L3D_SetDisplayCamera%CameraNumber"
+3, 	"L3D Get Control Camera[%L%L3D_GetDisplayCamera%"
+4, 	"L3D Lock Light%L%L3D_LockLight%LightNumber"
+5, 	"L3D Unlock Light%L%L3D_UnLockLight%LightNumber"
+6, 	"L3D Get Locked[%LL%L3D_GetLocked%LightNumber"
+7, 	"L3D Get Allocated Light[%L%L3D_GetTotalFreeLight%"
+8, 	"L3D Add Virtual Light[%LFFFFLLLL%L3D_AddVirtualLight%Xpos, YPos, ZPos, Range, RedColor, GreenColor, BlueColor, Style"
+9, 	"L3D Delete Virtual Light[%LL%L3D_DeleteVirtualLight%LightNumber"
+10, 	"L3D Get Virtual Light Count[%L%L3D_GetVirtualLightsCount%"
+11, 	"L3D Clear Virtual Lights%0%L3D_ClearVirtualLights%"
+12, 	"L3D Display Lights[%L%L3D_RefreshLights%"
+13, 	"L3D Set Visibility Range%F%L3D_SetVisibilityDistance%Range"
+14, 	"L3D Get Visibility Range[%F%L3D_GetVisibilityDistance%"
+15, 	"L3D Set Virtual Light Range%LF%L3D_SetVLightRange%LightNumber, Range(f)"
+}
+
+
+STRINGTABLE
+{
+16, 	"L3D Set Virtual Light Color%LLLL%L3D_SetVLightColor%LightNumber, Red, Green, Blue"
+17, 	"L3D Hide Virtual Light%L%L3D_HideVLight%LightNumber"
+18, 	"L3D Show Virtual Light%L%L3D_ShowVLight%LightNumber"
+19, 	"L3D Position Virtual Light%LFFF%L3D_PositionVLight%LightNumber, XPos(f), YPos(f), ZPos(f)"
+20, 	"L3D Set Virtual Light Halo%LL%L3D_SetVLightHalo%LightNumber, HaloImage"
+21, 	"L3D Set Virtual Fixed Light%L%L3D_SetVLightAsFixed%LightNumber"
+22, 	"L3D Set Virtual Flame Light%L%L3D_SetVLightAsFlame%LightNumber"
+23, 	"L3D Set Virtual Pulse Light%L%L3D_SetVLightAsPulse%LightNumber"
+24, 	"L3D Set Virtual Flash Light%L%L3D_SetVLightAsFlashs%LightNumber"
+25, 	"L3D Get True Light Color[%LL%L3D_GetTrueLightColor%LightID"
+26, 	"L3D Get True Light Range[%LL%L3D_GetTrueLightRange%LightID"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProLight3DeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

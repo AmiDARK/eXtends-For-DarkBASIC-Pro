@@ -1,0 +1,64 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Basic 2D - Bitmap Font Demo
+Rem 
+  Sync On : Sync Rate 60
+Rem Now, we take the full scroll text speechs.
+  Restore DataZone
+  Read LineCount
+  For XLoop = 1 to LineCount
+    Read InTxt$
+    FullText$ = FullText$ + InTxt$
+   Next XLoop
+  TextShift = 1
+
+Message "TEST", "1"
+Rem
+  XGui MipMap Mode 1
+Message "TEST", "2"
+  XFont Setup Font "Font32x32.bmp" , 1 , 32 , 32 , 0
+Message "TEST", "3"
+  XFont Auto Return Mode 0
+Message "TEST", "4"
+  XGui Set Text Transparent
+Message "TEST", "5"
+  IMG = IMG Load Image( "Graphics\Background.png" )
+Message "TEST", "6"
+Message "TEST", "7"
+Rem Main demo loop.
+  Repeat
+    Cls : Set Cursor 0, 0 : Print "FPS : ", Screen FPS()
+    Paste Image IMG, 0, 0
+    Print "Press '1' for Sync Rate 60"
+    Print "Press '2' for Sync Rate 0"
+    D$ = Inkey$()
+    If D$ = "1" Then Sync Rate 60
+    If D$ = "2" Then Sync Rate 0
+    Inc XShift, 1 : Rem shift text to 1 pixel on the left.
+    If XShift = 32 : XShift = 0 : Inc TextShift, 1 : Endif : Rem On décale de 1 charactère chaque 16 pixels.
+    If TextShift > Len( FullText$ ) : TextShift = TextShift - Len( FullText$ ) : Endif : Rem on revient au début du texte si la fin est atteinte.
+    ScrollTexte( FullText$, TextShift, XShift, 400 )
+    Sync
+   Until SpaceKey() = 1
+  End
+
+
+Rem This function will extract the text part to print on screen.
+Function ScrollTexte( Texte As String, TextShift As Integer, ScrollShift As Integer, YPos As Integer)
+  TilesCount = ( Bitmap Width() / 32 ) + 1
+  Text2Write$ = STR Get Middle( Texte, TextShift, TilesCount )
+  XFont Set Cursor 0-ScrollShift, Ypos
+  XFont Print Text2Write$      	 
+ EndFunction
+
+DataZone:
+Data 4
+Data "                                   "
+Data "Here is a small scroll text demo using xfont developped by frederic cordier "
+Data "for darkbasic professional extends plugin and xquadeditor software "
+Data "i hope you enjoy that small demo                            "

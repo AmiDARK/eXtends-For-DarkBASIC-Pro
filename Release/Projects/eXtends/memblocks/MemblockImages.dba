@@ -1,0 +1,46 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Memblocks Support Demo
+Rem
+Sync On : Sync Rate 0
+AutoCam Off
+Repeat: Sync : Until Screen Invalid() = 0
+Dim Image( 5 ) : Dim MBC( 5 )
+
+Image(1) = IMG Load Image( "Graphics\Image01.jpg", 1 )
+Image(2) = IMG Load Image( "Graphics\Image02.jpg", 1 )
+Image(3) = IMG Load Image( "Graphics\Image03.jpg", 1 )
+Image(4) = IMG Load Image( "Graphics\Image04.jpg", 1 )
+Image(5) = IMG Load Image( "Graphics\Image05.jpg", 1 )
+MBC(1) = MBC Make Memblock From Image( Image(1) )
+MBC(2) = MBC Make Memblock From Image( Image(2) )
+MBC(3) = MBC Make Memblock From Image( Image(3) )
+MBC(4) = MBC Make Memblock From Image( Image(4) )
+MBC(5) = MBC Make Memblock From Image( Image(5) )
+MBC0 = MBC Make Memblock Image( 640, 480, 32 )
+Image0 = IMG Make Image From Memblock( MBC0 )
+
+Rem
+  Repeat   
+    Time1 = Timer()
+    For XLoop = 1 to 225
+      MBC Paste Image MBC( Rnd( 4 ) + 1 ), 0, 0, 64, 64, MBC0, Rnd( 640 - 64 ), Rnd( 480 - 64 )
+     Next XLoop
+    Make Image From Memblock Image0, MBC0
+    Make Image From Memblock Image0, MBC0
+    Make Image From Memblock Image0, MBC0
+    Paste Image Image0, 0, 0
+    Paste Image Image0, 0, 0
+    Paste Image Image0, 0, 0
+    Time2 = Timer()
+    Set Cursor 0, 0
+    Print Time2 - Time1
+    Print Screen FPS()
+    Sync
+   Until SpaceKey() = 1 
+ End

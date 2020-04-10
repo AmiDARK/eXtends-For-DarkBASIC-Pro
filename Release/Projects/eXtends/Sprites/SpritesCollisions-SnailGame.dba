@@ -1,0 +1,107 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Perfect Pixel collisions system for Sprites demonstration.
+Rem
+Set Display Mode 320, 240, 32
+Sync On : Sync Rate 30
+
+Rem Load all needed images.
+Tile1 = IMG Load Image( "Graphics\Tile1.bmp", 1 ) : Rem Graphic for walls
+Tile2 = IMG Load Image( "Graphics\Tile2.bmp", 1 ) : Rem Graphic for background
+BMP1 = BMP Make Bitmap( 320, 192 ) : Rem Labyrinth walls
+BMP2 = BMP Make Bitmap( 320, 192 ) : Rem Labyrinth background
+
+Rem Load the 4 images for the snail.
+SnailU = IMG Load Image( "Graphics\SnailU.bmp", 1 )
+SnailD = IMG Load Image( "Graphics\SnailD.bmp", 1 )
+SnailL = IMG Load Image( "Graphics\SnailL.bmp", 1 )
+SnailR = IMG Load Image( "Graphics\SnailR.bmp", 1 )
+
+Rem Trace the two labyrinth parts (walls and backgrounds)
+Restore Labyrinth_Data
+For YLoop = 0 to 176 Step 16
+  For XLoop = 0 to 304 Step 16
+    Read Object
+    Select Object
+    	Case 1 : Set Current Bitmap BMP1 : Paste Image Tile1, XLoop, YLoop : EndCase
+    	Case 0 : Set Current Bitmap BMP2 : Paste Image Tile2, XLoop, YLoop : EndCase
+     EndSelect
+   Next XLoop
+ Next YLoop
+
+Rem Get labyrinth walls.
+Set Current Bitmap BMP1
+WALLS = IMG Make Image( 0, 0, 320, 192, 1 )
+BMP1 = BMP Delete Bitmap( BMP1 )
+
+Rem Get Labyrunth Background.
+Set Current Bitmap BMP2
+BACKGROUND = IMG Make Image( 0, 0, 320, 192, 1 )
+BMP2 = BMP Delete Bitmap( BMP2 )
+
+Rem Display the labyrinth and the snail to its default position.
+Set Current Bitmap 0
+SPR_WALLS = SPR Sprite( 1, 48, WALLS )
+SPR_BACKGROUND = SPR Sprite( 1, 48, BACKGROUND )
+SnailSPR = SPR Sprite( 16, 206, SnailU )
+Rem Initialize timer to play 60 seconds and no more.
+RemainingTime = Timer() + ( 60 * 1000 )
+
+Rem Main démo loop
+Repeat
+  Rem Calculate the time before game over :
+  TimeAvailable = Int( ( RemainingTime - Timer() ) / 1000 )
+  If TimeAvailable < 1 Then Finished = 1
+
+  Set Cursor 0, 0 : Print "The Snail Labyrinth Demonstration"
+  Print "Showing : Pixels Sprites Collisions"
+  Print "Remaining Time : ", TimeAvailable
+  Rem Control the snail.
+  If Upkey() = 1 Then Sprite SnailSPR, Sprite X( SnailSPR ), Sprite Y( SnailSPR ) - 1 , SnailU
+  If Downkey() = 1 Then Sprite SnailSPR, Sprite X( SnailSPR ), Sprite Y( SnailSPR ) + 1 , SnailD
+  If Leftkey() = 1 Then Sprite SnailSPR, Sprite X( SnailSPR ) - 1 , Sprite Y( SnailSPR ), SnailL
+  If Rightkey() = 1 Then Sprite SnailSPR, Sprite X( SnailSPR ) + 1 , Sprite Y( SnailSPR ), SnailR
+
+  Rem Get collision for game over.
+  COLLISIONS = SPR Get Collision( SnailSPR, SPR_WALLS, 1 )
+  If COllISIONS > 0 Then Finished = 1 : Rem Game Over
+  If Sprite X( SnailSPR ) > 304 Then Finished = 2 : Rem Congratulations.
+  Sync
+ Until Finished > 0
+
+Rem Display game over or congratulations informations.
+Repeat
+  Set Cursor 0, 0 : Print "The Snail Labyrinth Demonstration"
+  If Finished = 1 Then Print "You loose ... Game Over"
+  If Finished = 2 Then Print "Congratulations !!! You reached the exit"	
+  Print "Press Space Key to quit the game"
+  Sync
+ Until SpaceKey() = 1
+
+SPR_WALLS = SPR Delete Sprite( SPR_WALLS ) : WALLS = IMG Delete Image( WALLS )
+SPR_BACKGROUND = SPR Delete sprite( SPR_BACKGROUND ) : BACKGROUND = IMG Delete Image( BACKGROUND )
+Tile1 = IMG Delete Image( Tile1 ) : Tile2 = IMG Delete Image( Tile2 )
+SnailSPR = SPR Delete Sprite( SnailSPR )
+SnailU = IMG Delete Image( SnailU ) : SnailD = IMG Delete Image( SnailD )
+SnailL = IMG Delete Image( SnailL ) : SnailR = IMG Delete Image( SnailR )
+End
+
+Rem All the labyrinth data.
+Labyrinth_Data:
+Data 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+Data 1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0
+Data 1,0,1,1,1,0,1,0,1,1,1,1,1,0,1,1,1,0,1,1
+Data 1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0,0,1
+Data 1,0,1,0,1,1,1,0,0,0,1,0,1,0,1,0,1,1,0,1
+Data 1,0,1,0,0,0,0,0,1,1,1,0,1,0,1,0,0,1,0,1
+Data 1,0,1,1,1,1,1,1,1,0,0,0,1,0,1,1,0,1,0,1
+Data 1,0,0,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1
+Data 1,0,1,0,1,0,1,0,1,1,1,0,0,0,1,1,1,0,1,1
+Data 1,0,1,0,1,1,1,0,1,0,0,0,1,1,1,0,0,0,1,1
+Data 1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1
+Data 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1

@@ -1,0 +1,126 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Billboard Sprites.
+Rem 
+Sync On : Sync Rate 60
+
+Rem Firstly we load the bitmap to cut all character animations.
+Dim CharAnims( 16 )
+CharImage = IMG Load Image( "Graphics\Character.bmp", 1 )
+BITMAP = BMP Make Bitmap( 128, 128 )
+Set Current Bitmap BITMAP
+Paste Image CharImage, 0, 0
+For XLoop = 0 to 3
+  XCut = XLoop * 24
+  CharAnims( XLoop ) = IMG Make Image( XCut, 0, XCut + 24, 32 ) : Rem Moving Up Animations 0-3
+  CharAnims( XLoop + 4 ) = IMG Make Image( XCut, 32, XCut + 24, 64 ) : Rem Moving Right Animations 4-7
+  CharAnims( XLoop + 8 ) = IMG Make Image( XCut, 64, XCut + 24, 96 ) : Rem Moving Down Animations 8-11
+  CharAnims( XLoop + 12 ) = IMG Make Image( XCut, 96, XCut + 24, 128 ) : Rem Moving Left Animations 12-15
+ Next XLoop
+BITMAP = BMP Delete Bitmap( BITMAP )
+CharImage = IMG Delete Image( CharImage )
+Set Current Bitmap 0
+
+Rem We load the image for the ground.
+GRASS = IMG Load Image( "Graphics\Grass.jpg" ) 
+
+Rem We Load The Original Object for the crates
+CRATE = B3D Load Object( "Objects\Crate.x" )
+Position Object CRATE, -1024, 0, -1024
+
+Rem New We create the Scène
+Dim Tiles( 7, 7 ) : Dim TObject( 7, 7 )
+Restore Datas
+For YLoop = 0 To 7
+  For XLoop = 0 to 7
+  	 Read Info
+    Rem Store data for collisions
+  	 Tiles( XLoop, YLoop ) = Info
+  	 Rem Create ground or crate dependaing on data
+  	 Select Info
+      Case 0
+        TObject( XLoop, YLoop ) = B3D Make Object Plain( 64, 64 )
+        Texture Object TObject( XLoop, YLoop ), GRASS
+        Rotate Object TObject( XLoop, YLoop ), 90, 0, 0
+       EndCase
+      Case 1
+        TObject( XLoop, YLoop ) = B3D Instance Object( CRATE )
+       EndCase
+  	  EndSelect
+    Rem Put the object to its final position
+    Position Object TObject( XLoop, YLoop ), ( XLoop * 64 ) + 32, Info * 32, ( YLoop * 64 ) + 32
+   Next XLoop
+ Next YLoop
+
+Rem Setup the player position
+PlayerXPos = 96 : PlayerZPos =  96 : OldAnim = 0
+CharObject = B3D Make Object Plain( 24, 32 )
+B3D Object To Billboard CharObject : Rem Add the object to the billboard list.
+Set Object CharObject, 1, 1, 0, 0, 0, 0
+
+Repeat
+  Rem Move the player with arrow keys
+  XMove = RightKey() - LeftKey()
+  ZMove = UpKey() - downKey()
+  If XMove <> 0
+    XTile = ( PlayerXPos + ( 13 * XMove ) ) / 64 : ZTile = PlayerZPos / 64
+    If Tiles( XTile, ZTile ) = 0 Then PlayerXPos = PlayerXPos + XMove
+   Endif
+  If ZMove <> 0
+  	 XTile = PlayerXPos / 64 : ZTile = ( PlayerZPos + ( 13 * ZMove ) ) / 64
+    If Tiles( XTile, ZTile ) = 0 Then PlayerZPos = PlayerZPos + ZMove
+  	Endif
+  Position Object CharObject, PlayerXPos, 16, PlayerZPos
+  Rem Animate The Player
+  If XMove = -1 Then NewAnim = 1
+  If XMove = 1 Then NewAnim = 3
+  If ZMove = 1 Then NewAnim = 0
+  If ZMove = -1 Then NewAnim = 2
+  If NewAnim <> OldAnim
+  	 AnimStep = 0 : OldAnim = NewAnim
+  	Else  	 
+    If XMove <> 0 Or ZMove <> 0 Then AnimStep = AnimStep + 1
+    If AnimStep = 32 Then AnimStep = 0
+   Endif
+  Texture Object CharObject, CharAnims( ( OldAnim * 4 ) + ( AnimStep / 8 ) )
+  Rem Position the camera to view the character.
+  Position Camera GCAMERA, PlayerXPos, 128.0, PlayerZPos - 48
+  Point Camera GCAMERA, PlayerXPos, 0, PlayerZPos
+
+  Rem Make the CharObject Update
+  B3D Update Billboards
+
+  Rem Sync to update All
+  Sync
+ Until SpaceKey() = 1
+
+Rem We Delete the full maze objects.
+For YLoop = 7 To 0 Step -1
+  For XLoop = 7 To 0 Step -1
+    TObject( XLoop, YLoop ) = B3D Delete Object( TObject( XLoop, YLoop ) )
+   Next XLoop
+Next YLoop
+
+Rem We delete the master crate object.
+CRATE = B3D Delete Object( CRATE )
+
+Rem We delete the master Grass texture.
+GRASS = IMG Delete Image( GRASS )
+
+End
+
+Rem The Maze structure ...
+Datas:
+Data 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1
+Data 1 , 0 , 0 , 1 , 0 , 0 , 0 , 1
+Data 1 , 1 , 0 , 1 , 0 , 1 , 0 , 1
+Data 1 , 0 , 0 , 1 , 0 , 1 , 0 , 1
+Data 1 , 0 , 1 , 1 , 0 , 1 , 0 , 1
+Data 1 , 0 , 1 , 0 , 0 , 1 , 0 , 1
+Data 1 , 0 , 0 , 0 , 1 , 0 , 0 , 1
+Data 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1

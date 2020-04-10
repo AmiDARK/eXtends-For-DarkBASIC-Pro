@@ -1,0 +1,63 @@
+
+STRINGTABLE
+{
+1, 	"IMG Initialized[%L%Image_Init%"
+2, 	"IMG Clear%0%IMG_Clear%"
+3, 	"IMG Get Count[%L%IMG_Count%"
+4, 	"IMG Delete Image[%LL%IMG_Delete%ImageNumber"
+5, 	"IMG Load Image[%LS%IMG_DynamicLoad%Filename$"
+6, 	"IMG Load Image[%LSL%IMG_DynamicLoadF%Filename$, Flag"
+7, 	"IMG Make Image From Memblock[%LL%IMG_MakeImageFromMemblock%Memblock Number"
+8, 	"IMG Make Image[%LLLLL%IMG_GrabImage%Left, Top, Right, Bottom"
+9, 	"IMG Make Image[%LLLLLL%IMG_GrabImageF%Left, Top, Right, Bottom, Flag"
+10, 	"IMG Mosaic[%LLLL%IMG_Mosaic1%SourceImage, Factor, RandomMode"
+11, 	"IMG Mosaic[%LLLLL%IMG_Mosaic2%SourceImage, Factor, RandomMode, TargetImage"
+12, 	"IMG Wobble[%LL%IMG_Wobble1%SourceImage"
+13, 	"IMG Wobble[%LLL%IMG_Wobble2%SourceImage, TargetImage"
+14, 	"IMG Set Wobble%LLL%IMG_SetWobble%Amplitude, Speed, Step"
+15, 	"IMG Generate DOT3[%LLLL%IMG_DOT3Generate%SourceImage, Smooth, Steep"
+}
+
+
+STRINGTABLE
+{
+16, 	"IMG Load Image%SL%IMG_StaticLoad%FileName$, ImageID"
+17, 	"IMG Load Image%SLL%IMG_StaticLoadF%FileName$, ImageID, TextureFlag"
+18, 	"IMG Set Camera To Image[%LLLL%IMG_SetCameraToImage%CameraID, Width, Height"
+19, 	"IMG Set Camera To Image[%LLLLL%IMG_SetCameraToImage1%CameraID, Width, Height, GenerateAlpha"
+20, 	"IMG Generate HeightMap[%LL%IMG_GREYGenerate%SourceImage"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProImageeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", "support@odyssey-creators.com"
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

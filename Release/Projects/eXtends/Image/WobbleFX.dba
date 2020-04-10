@@ -1,0 +1,76 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Wobble Effect
+Rem
+dim WE_Wobble(6)
+Rem WE_Wobble(1)=Amplitude
+Rem WE_Wobble(2)=Speed
+Rem WE_Wobble(3)=Step
+Rem WE_Wobble(4)=SYSTEM DO NOT MODIFY
+Rem WE_Wobble(5)=Image XSize
+Rem WE_Wobble(6)=Image YSize
+Rem
+Set display mode 640,480,16
+sync rate 0 : sync on : sync
+Rem
+REM load image "gfx\character.jpg",1,1
+Load Image "Graphics\SAF.jpg", 1, 1
+
+Set cursor 0,0
+Center text (bitmap width(0)/2),0,"DarkBASIC Professional - Extends PlugIn"
+Center text (bitmap width(0)/2),12,"Wobble Effect Demonstration"
+Center text (bitmap width(0)/2),24,"Press spacekey to quit"
+Center Text (bitmap width(0)/2),36,"Press 1-2 to decrease/increase amplitude"
+Center Text (bitmap width(0)/2),48,"Press 4-5 to decrease/increase speed"
+Center Text (bitmap width(0)/2),60,"Press 7-8 to decrease/increase step"
+
+Rem Set Amplitude, Speed, Step
+Amplitude = 8 : Speed = 1 : _Step = 1
+IMG Set Wobble Amplitude, Speed, _Step
+
+Repeat
+  D$ = inkey$()
+  Select D$
+  	 Case "1"
+  	 	Dec Amplitude, 1 : If Amplitude < 1 Then Amplitude = 1
+      IMG Set Wobble Amplitude, Speed, _Step
+  	  EndCase
+  	 Case "2"
+  	 	Inc Amplitude, 1 : If Amplitude >16 Then Amplitude = 16
+      IMG Set Wobble Amplitude, Speed, _Step
+  	  EndCase
+  	 Case "4"
+  	 	Dec Speed, 1 : If Speed < 1 Then Speed = 1
+      IMG Set Wobble Amplitude, Speed, _Step
+  	  EndCase
+  	 Case "5"
+  	 	Inc Speed, 1 : If Speed >16 Then Speed = 16
+      IMG Set Wobble Amplitude, Speed, _Step
+  	  EndCase
+  	 Case "7"
+  	 	Dec _Step, 1 : If _Step < 1 Then _Step = 1
+      IMG Set Wobble Amplitude, Speed, _Step
+  	  EndCase
+  	 Case "8"
+  	 	Inc _Step, 1 : If _Step >16 Then _Step = 16
+      IMG Set Wobble Amplitude, Speed, _Step
+  	  EndCase
+   EndSelect
+  Image = IMG Wobble( 1, 2 )
+  paste image 2, ( Bitmap Width( 0 ) - Image Width( 2 ) ) / 2 , 80
+  Set Cursor 0,80
+  Print "AMPLITUDE : ", Amplitude
+  Print "SPEED     : ", Speed
+  Print "STEP      : ", _Step
+  Print "FRAMERATE : ", Screen FPS()
+  Sync
+ Until spacekey()=1
+For boucle=1 to 2
+  if image exist(boucle)=1 then delete image boucle
+ next boucle
+End

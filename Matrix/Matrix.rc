@@ -1,0 +1,43 @@
+
+STRINGTABLE
+{
+1, 	"MTX Initialized[%L%MTX_Init%"
+2, 	"MTX Clear All Matrix%0%MTX_Clear%"
+3, 	"MTX Exist Matrix Count[%L%MTX_Count%"
+4, 	"MTX Delete Matrix[%LL%MTX_Delete%Camera Number"
+5, 	"MTX Make Matrix[%LFFLL%MTX_DynamicMake%Width, Height, XTiles, ZTiles"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProMatrixeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

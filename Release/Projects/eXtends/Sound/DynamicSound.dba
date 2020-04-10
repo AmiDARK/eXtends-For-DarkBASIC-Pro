@@ -1,0 +1,65 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Sound Support Demo
+Rem
+Sync On : Sync Rate 60
+AutoCam Off
+Rem
+  Repeat   
+    D$ = Inkey$()
+    Rem Depending on which key the user press, we create an object.
+    Select D$
+      Case "q"
+        If Object1 = 0
+    	    Object1 = SND Load Sound( "Sounds\Sound01.Wav" )
+         Endif
+       EndCase
+      Case "w"
+        If Object2 = 0
+    	    Object2 = SND Load Sound( "Sounds\Sound02.Wav" )
+         Endif
+       EndCase
+      Case "e"
+        If Object3 = 0
+    	    Object3 = SND Load Sound( "Sounds\Sound03.Wav" )
+         Endif
+       EndCase
+      Case "r"
+        If Object4 = 0
+    	    Object4 = SND Load Sound( "Sounds\Sound04.Wav" )
+         Endif
+       EndCase
+      Case "t"
+        If Object5 = 0
+    	    Object5 = SND Load Sound( "Sounds\Sound05.Wav" )
+         Endif
+       EndCase
+      Case "a" : Object1 = SND Delete Sound( Object1 ) : EndCase
+      Case "s" : Object2 = SND Delete Sound( Object2 ) : EndCase
+      Case "d" : Object3 = SND Delete Sound( Object3 ) : EndCase
+      Case "f" : Object4 = SND Delete Sound( Object4 ) : EndCase
+      Case "g" : Object5 = SND Delete Sound( Object5 ) : EndCase
+     EndSelect
+    Cls
+    Set Cursor 0, 0
+    Print "Use Q up to T to load sounds"
+    Print "Use A up to G to delete them"
+    Print "use W up to B to play sound 1 up to 5"
+    Print "Sound 1 to 5 Exist ?"
+    For XLoop = 1 to 5
+      Print Sound Exist( XLoop )
+     Next XLoop
+    D$ = Inkey$()
+    If D$ = "z" And Sound Exist( 1 ) = 1 Then Play Sound 1
+    If D$ = "x" And Sound Exist( 2 ) = 1 Then Play Sound 2
+    If D$ = "c" And Sound Exist( 3 ) = 1 Then Play Sound 3
+    If D$ = "v" And Sound Exist( 4 ) = 1 Then Play Sound 4
+    If D$ = "b" And Sound Exist( 5 ) = 1 Then Play Sound 5
+    Sync
+   Until SpaceKey() = 1 
+End

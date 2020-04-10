@@ -1,0 +1,48 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : 3D Maths Support Demo
+Rem 
+Sync On : sync Rate 60
+DURATION = 1
+    Rem Create Dynamically the Cube
+    Object1 = B3D Make Object Sphere( 64.0 )
+    Set Object Cull Object1, 0
+    Position Object Object1, 0, 0, 0
+    Rem Main Loop Start
+    Repeat
+      Rem Calculate Using Auto Camera-Object Distance      
+      DistCam# = B3D Get Distance From Camera( Object1 )
+      Rem Get entities position to use them afor distances calculations 2 and 3.
+      XPos# = Object Position X( Object1 ) : YPos# = Object Position Y( Object1 )
+      ZPos# = Object Position Z( Object1 )
+      XCam# = Camera Position X() : YCam# = Camera Position Y() : ZCam# = Camera Position Z()
+      Rem Calculate Using Positions
+      DistVal# = B3D Get Distance( XPos#, YPos#, ZPos#, XCam#, YCam#, ZCam# )
+      Rem Calculate distance using DBPro maths.
+      XCam# = Camera Position X() : YCam# = Camera Position Y() : ZCam# = Camera Position Z()
+      XDist# = XCam# - XPos# : YDist# = YCam# - YPos# : ZDist# = ZCam# - ZPos#
+      Dist# = Sqrt( ( XDist#*XDist# ) + ( YDist#*YDist# ) + ( ZDist#*ZDist# ) )
+      XPos# = Object Position X( Object1 ) : YPos# = Object Position Y( Object1 )
+      ZPos# = Object Position Z( Object1 )
+      DistToCam# = B3D Get Distance To Camera( XPos#, YPos#, ZPos# )
+      Rem Display Distance to screen
+      Set Cursor 0,0
+      Print "Camera Calculation   : ", DistCam#
+      Print "Camera Calculation   : ", DistToCam# 
+      Print "Position Calculation : ", DistVal# 
+      Print "DB Calculation       : ", Dist# 
+      Rem Make the camera always face the cube.
+      If LeftKey() = 1 Then Turn Camera Left 1
+      If RightKey() = 1 Then Turn Camera Right 1
+      If UpKey() = 1 Then Pitch Camera Up 1
+      If DownKey() = 1 Then Pitch Camera Down 1
+      Move Camera ( MouseClick() = 1 ) - ( MouseClick() = 2 )
+      Sync
+     Until SpaceKey() = 1
+    Delete Object 1
+End

@@ -1,0 +1,63 @@
+
+STRINGTABLE
+{
+1, 	"MBC Initialized[%L%MBC_Init%"
+2, 	"MBC Clear All Memblocks%0%MBC_Clear%"
+3, 	"MBC Exist Memblock Count[%L%MBC_Count%"
+4, 	"MBC Delete Memblock[%LL%MBC_Delete%Memblock Number"
+5, 	"MBC Clone Memblock[%L%MBC_CloneMemblock%Source Memblock"
+6, 	"MBC Make Memblock[%LL%MBC_DynamicMake%Bytes Size"
+7, 	"MBC Make Memblock From Array[%LH%MBC_DynamicMakeFromArray%Array Name(0)"
+8, 	"MBC Make Memblock From Bitmap[%LL%MBC_DynamicMakeFromBitmap%Bitmap Number"
+9, 	"MBC Make Memblock From Image[%LL%MBC_DynamicMakeFromImage%Image Number"
+10, 	"MBC Make Memblock From Mesh[%LL%MBC_DynamicMakeFromMesh%Mesh Number"
+11, 	"MBC Make Memblock From Sound[%LL%MBC_DynamicMakeFromSound%Sound Number"
+12, 	"MBC Make Memblock Image[%LLLL%MakeMemblockImage%Width, Height, Depth"
+13, 	"MBC Plot%LLLL%IMPlot%Memblock Number, X, Y, RGBColor"
+14, 	"MBC Get Pixel[%LLLL%IMGetPixel%Memblock Number, X, Y"
+15, 	"MBC Circle%LLLLLL%IMCircle%Memblock Number, X, Y, Diameter, RGBColor, FillMode"
+}
+
+
+STRINGTABLE
+{
+16, 	"MBC Cube%LLLLLL%IMCube%Memblock Number, X, Y, Size, RGBColor, FillMode"
+17, 	"MBC Box%LLLLLLL%IMBox%Memblock Number, Left, Top, Bottom, Right, RGBColor, FillMode"
+18, 	"MBC Stretch Image%LL%IMStretch%Source IM, Target IM"
+19, 	"MBC Stretch Image[%LLLL%IMStretch2%Source IM, Width, Height"
+20, 	"MBC Paste Image%LLLLLLLL%CopyMemblockImage%SourceMBC,X,Y,Width,Height,TargetMBC,X,Y"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProMemblockseXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

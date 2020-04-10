@@ -1,0 +1,54 @@
+<BODY COLOR=black BACKGROUND=gfx/backdrop.jpg BGPROPERTIES=FIXED>
+<CENTER>
+  <b>Lesson 1<BR>
+  HOW TO use the dynamic media system.<BR>
+  </b> 
+</CENTER>
+<p><FONT SIZE=2><br>
+  </FONT>DarkBASIC Professional use a static way of creating medias. This mean 
+  you need to choose a number before creating the object.<br>
+  For example, if we want to load our Hero using default DarkBASIC Professional 
+  commands, we'll do this :<BR>
+  <br>
+  <font color="#6699FF"><b><font color="#0000FF">Load Object</font></b></font> 
+  &quot;hero.x&quot;, 1</p>
+<p>The number 1 define that the object index will be 1. Problems appear when we 
+  have a large amount of objects... More the project will be near to its completion, 
+  more objects we'll have. This also mean that we'll have to memorize which numbers 
+  are used by which objects. It become then hard to remind exactly all objects 
+  and number associates without a written list.<br>
+  <br>
+  The main advantage of this plugin is to allow user to not take care of the medias 
+  numbers. The command will set it for him. It's the &quot;Dynamic&quot; way for 
+  media handling. User will have to use a named variable, a table or a variable 
+  in a type to store the number returned by the function. It's then easy to name 
+  a global variable : Hero and use it. We'll proceed like follow using the plugin 
+  command :<br>
+  <br>
+  Hero = <font color="#0000FF"><b>B3D Load Object</b></font>(&quot;Hero.x&quot;)<br>
+  <br>
+  It is easier to use named variables especially when the choosen name is linked 
+  to the media use. When you'll have to modify the media, position it, scale it, 
+  and make other changes, it will be easy to simply use the default DarkBASIC 
+  Professional commands replacing the object number by the variable. It will be 
+  like this :<br>
+  <br>
+  <font color="#0000FF"><b>Position Object</b></font> Hero, X, Y, Z</p>
+<p>You no more need to use number. Variable is here now and when you check the 
+  line, you know that the object that will be positionned is the &quot;hero&quot;.<br>
+  <br>
+  That exemple is dedicaced to 3D Objects but the plugin contain the same commands 
+  for other medias like sounds, musics, memblocks, images and files...<br>
+  <br>
+  WARNING !!! : To be sure that the &quot;Dynamic&quot; system will work perfectly, 
+  you must not use default DarkBASIC Professional creation/clone/instance/load 
+  commands when commands from the plugin are used.<br>
+  <br>
+  <font face=Verdana><font face=Verdana><font face=Verdana><span
+style='font-size:10.0pt;font-family:Verdana'><font face=Verdana><font face=Verdana><font face=Verdana><font face=Verdana>CLIC 
+  <a href=..%5CDBE_Main.htm>HERE</a> TO GO BACK TO MAIN MENU</font></font></font></font><o:p></o:p></span></font></font> 
+  </font> <BR>
+  <BR>
+  <BR>
+</p>
+</BODY>

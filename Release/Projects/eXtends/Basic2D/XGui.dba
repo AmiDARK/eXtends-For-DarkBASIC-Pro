@@ -1,0 +1,68 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.3 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Basic 2D - Xwindow Demonstration
+Rem
+  Set Bitmap Format 21
+  Sync On : Sync Rate 0
+  Cls : Set Cursor 0, 0
+  Print "Choose which skin to use :"
+  Print "1 - Ancient Style"
+  Print "2 - RPG Style"
+  Print "3 - Granit Style"
+  Print "4 - Custom size skin with PNG Transparency" : Sync
+  Input Skin
+  Select Skin
+    Case 1 : Skin$ = "AncientBlue.skin" : EndCase
+    Case 2 : Skin$ = "FFRpg_Style.skin" : EndCase
+    Case 3 : Skin$ = "granit.skin" : EndCase
+    Case 4 : Skin$ = "Custom.skin" : EndCase
+   EndSelect
+Rem
+Rem
+  XGui MipMap Mode 1
+  If XGUI SETUP( Skin$ ) = 1
+
+    XGui Enable Alpha Window
+    XGui Set Text Transparent
+    XFont Setup Font "Font16x16.bmp" , 1 , 16 , 32 , 0
+
+    XGUI CREATE WINDOW 1 , 320 , 240
+    XGUI POSITION WINDOW 1 , 0 , 0
+    XGui Window Use XFont 1, 1
+    XGui Set Alpha 1, 224
+` XGui Window Properties 1, 1, 0, 0, 0
+
+    XGUI ADD GADGET TEXT 1 , 1 , 4 , 4 , 64, 16, "HELLO"
+
+    SCORE = IMG Load Image( "graphics\score.jpg" )
+    XGUI ADD GADGET 1 , 2 , 128 , 0 , 64 , 16 , SCORE
+ 
+    Sync
+    XGUI UPDATE
+
+    XFont Set Current Bitmap 0
+    Repeat
+      Cls : Set Current Bitmap 0
+      OldKey$ = Key$ : Key$ = Inkey$()
+      If Key$ <> OldKey$
+        Select Key$
+          CASE "q" : XGUI SET GADGET TEXT 1 , "Good" : ENDCASE
+          CASE "a" : XGUI SET GADGET TEXT 1 , "Hello" : ENDCASE
+          CASE "w" : XGUI ADD GADGET TEXT 1 , 3 , 64 , 32 , 64 , 16 , "Gadget 3" : ENDCASE
+         EndSelect
+       Endif
+      XFont Set Cursor 8 , 0 : XFont Print Str$( Screen Fps() )
+      XGUI UPDATE
+      Sync
+     Until SpaceKey() = 1
+    XGUI CLEAR
+   Else
+    Exit Prompt "Cannot Initialize Choosen XGUI", "DarkBASIC Professional Extends PlugIN Sample"
+   Endif
+  SCORE = IMG Delete Image( SCORE )
+ End

@@ -1,0 +1,125 @@
+
+STRINGTABLE
+{
+1, 	"XGui Setup[%LS%XWindow_Initialize%SkinFileName$"
+2, 	"XGui Clear%0%XWindow_ClearSystem%"
+3, 	"XGui CloseToClose%0%XWindow_TrueCloseMode%"
+4, 	"XGui CloseToHide%0%XWindow_FakeCloseMode%"
+5, 	"XGui Enable Alpha Window%0%XWindow_EnableAlphaiser%"
+6, 	"XGui Disable Alpha Window%0%XWindow_DisableAlphaiser%"
+7, 	"XGui Create Window%LLL%XWindow_Create%WindowNumber, Width, Height"
+8, 	"XGui Set Alpha%LL%XWindow_Alpha%WindowNumber, AlphaValue"
+9, 	"XGui Window To Front%L%XWindow_ToBack%WindowNumber"
+10, 	"XGui Window To Back%L%XWindow_ToFront%WindowNumber"
+11, 	"XGui Position Window%LLL%XWindow_Position%WindowNumber, XPosition, YPosition"
+12, 	"XGui Window Properties%LLLLL%XWindow_Properties%WindowNumber, BorderFlag, TitleFlag, DraggingMode, CloseButton"
+13, 	"XGui Window Border Off%L%XWindow_SetBorderOff%WindowNumber"
+14, 	"XGui Window Border On%L%XWindow_SetBorderOn%WindowNumber"
+15, 	"XGui Window Title Off%L%XWindow_SetTitleOff%WindowNumber"
+}
+
+
+STRINGTABLE
+{
+16, 	"XGui Window Title On%L%XWindow_SetTitleOn%WindowNumber"
+17, 	"XGui Window Dragging Off%L%XWindow_SetDraggingOff%WindowNumber"
+18, 	"XGui Window Dragging On%L%XWindow_SetDraggingOn%WindowNumber"
+19, 	"XGui Window Close Off%L%XWindow_SetCloseOff%LWindowNumber"
+20, 	"XGui Window Close On%L%XWindow_SetCloseOn%WindowNumber"
+21, 	"XGui Set Window Title%LS%XWindow_Title%WindowNumber, StringTitle$"
+22, 	"XGui Delete Window%L%XWindow_Delete%WindowNumber"
+23, 	"XGui Show Window%L%XWindow_Show%WindowNumber"
+24, 	"XGui Hide Window%L%XWindow_Hide%WindowNumber"
+25, 	"XGui Update%0%XWindow_Refresh%"
+26, 	"XGui Get Window[%L%XWindow_GetCurrentWindow%"
+27, 	"XGui Get Window XPos[%LL%XWindow_GetWinXPos%WindowNumber"
+28, 	"XGui Get Window YPos[%LL%XWindow_GetWinYPos%WindowNumber"
+29, 	"XGui Window Exist[%LL%XWindow_Exist%WindowNumber"
+30, 	"XGui Add Gadget%LLLLLLL%XWindow_AddGadget%WindowNumber, GadgetNumber, Xpos, Ypos, XSize, Ysize, ImageNumber"
+31, 	"XGui Add Gadget Combi%LLLLLLLS%XWindow_AddGadgetCombination%WindowNumber, GadgetNumber, Xpos, Ypos, XSize, Ysize, Image, GadgetText$"
+}
+
+
+STRINGTABLE
+{
+32, 	"XGui Add Gadget Text%LLLLLLS%XWindow_AddGadgetTexte%"
+33, 	"XGui Delete Gadget%L%XWindow_DeleteGadget%"
+34, 	"XGui Get Clicked[%L%XWindow_GetCurrentGadget%"
+35, 	"XGui Set Gadget Image%LL%XWindow_SetGadgetImage%"
+36, 	"XGui Set Gadget Text%LS%XWindow_SetGadgetText%"
+37, 	"XGui Position Gadget%LLL%XWindow_PositionGadget%"
+38, 	"XGui Stretch Window%LLL%XWindow_Stretch%"
+39, 	"XGui Default Window Size%L%XWindow_DefaultSize%"
+40, 	"XFont Setup Font%SLLLL%XFont_SetupFont%ImageFile$, FontNumber, FontSize, FirstChar, Flag"
+41, 	"XFont Clear Font%L%XFont_ClearFont%FontNumber"
+42, 	"XFont Exist[%LL%XFont_Exist%"
+43, 	"XFont Clear All Fonts%0%XFont_ClearAllFont%"
+44, 	"XFont Set Cursor%LL%XFont_SetCursor%XCurs, YCurs"
+45, 	"XFont Set Current Font%L%XFont_SetCurrentFont%FontNumber"
+46, 	"XFont Text Width[%LS%XFont_GetTextWidth%StringText$"
+47, 	"XFont Text Height[%LS%XFont_GetTextHeight%StringText$"
+}
+
+
+STRINGTABLE
+{
+48, 	"XFont Print%S%XFont_Print%StringText$"
+49, 	"XFont Set Current Bitmap%L%XFont_SetCurrentBitmap%BitmapNumber"
+50, 	"XGui Window Use XFont%LL%XWindow_UseXFont%FontNumber"
+51, 	"XGui Window Default Font%L%XWindow_DefaultFont%FontNumber"
+52, 	"XGui Attach Window%LLL%XWindow_AttachWindow%MasterWindow, ChildWindow , RelativePosition"
+53, 	"XGui Detach Window%L%XWindow_DetachWindow%ChildWindow"
+54, 	"XGui Set Text Opaque%0%XWindow_SetTextOpaque%"
+55, 	"XGui Set Text Transparent%0%XWindow_SetTextTransparent%"
+56, 	"XGui Get Attached[%LL%XWindow_GetAttached%WindowNumber"
+57, 	"XGui Window Hidden[%LL%GetWindowVisible%WindowNumbder"
+58, 	"XGui Window Gadget Count[%LL%XWindow_GetWinGadgetCount%WindowNumber"
+59, 	"XGui Set Chat Gadget%L%XWindow_SetChatGadget%GadgetNumber"
+60, 	"XGui Set Dialog Gadget%L%XWindow_SetChatWindowGadget%GadgetNumber"
+61, 	"XGui Send Dialog%S%XWindow_TalkToChat%StringText$"
+62, 	"XGui Set Chat ScanCode%L%XWindow_SetChatScanCode%ScanCodeID"
+63, 	"XGui Chat Active[%L%XWindow_ChatReadingKey%"
+}
+
+
+STRINGTABLE
+{
+64, 	"Last Chat Command$[%S%XWindow_GetLastCommand%"
+65, 	"B2D Initialized[%L%Basic2D_Init%"
+66, 	"XFont Auto Return Mode%L%XFont_AutoReturnMode%Mode"
+67, 	"XGui MipMap Mode%L%XGui_UseMipMap%Mode"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProBasic2DeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.thegamecreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

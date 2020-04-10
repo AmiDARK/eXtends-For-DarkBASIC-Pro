@@ -1,0 +1,18 @@
+; DarkBasic Professional RC2PBIncludes Ver 1.0 File - COMMANDS INITIALIZING
+; By Frederic Cordier - 07.02.13
+;
+Procedure.l CheckVector4Extends()
+  SUCCESS.l = 1
+  If OpenLibrary( 1, "eXtends_Vectors4_3D.dll")
+    Vector4Extends\Vector4_Init= AIsFunction( 1 , "Vector4_Init" ) ; 1 V3D Initialized 
+    Vector4Extends\V3D4_Delete= AIsFunction( 1 , "V3D4_Delete" ) ; 3 V3D Delete Vector4 Vector4 Number
+    Vector4Extends\V3D4_DynamicMakeVector4= AIsFunction( 1 , "V3D4_DynamicMakeVector4" ) ; 4 V3D Make Vector4 
+   Else
+    SUCCESS.l = 0
+   EndIf
+  ProcedureReturn SUCCESS
+ EndProcedure
+
+; IDE Options = PureBasic 4.10 Beta 2 (Windows - x86)
+; CursorPosition = 5
+; Folding = -

@@ -1,0 +1,41 @@
+STRINGTABLE
+{
+1, 	"M3D Initialized[%L%Mesh3D_Init%"
+2, 	"M3D Load Mesh[%LS%M3D_DynamicLoad%FileName$"
+3, 	"M3D Delete Mesh[%LL%M3D_Delete%Mesh Number"
+4, 	"M3D Make Mesh From Object[%LL%M3D_DynamicMakeFromObject%Source Object"
+5, 	"M3D Make Mesh From Memblock[%LL%M3D_DynamicMakeFromMemblock%Source Memblock"
+}
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProMesheXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

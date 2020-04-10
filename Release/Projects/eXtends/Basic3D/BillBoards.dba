@@ -1,0 +1,85 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Flames Billboarded 3D Objects Support Demo
+Rem 
+Sync On : Sync Rate 60
+Backdrop On : Color BackDrop 0
+Set Camera Range 1, 3000
+
+Rem We load the four stars textures.
+Load Image "graphics\Star (1).jpg" , 1
+Load Image "graphics\Star (2).jpg" , 2
+Load Image "graphics\Star (7).jpg" , 3
+Load Image "graphics\Star (8).jpg" , 4
+
+Rem We create the stars objects.
+For XLoop = 1 to 50
+  If XLoop = 1
+    Make Object Plain XLoop, 32, 32
+   Else
+    Clone Object XLoop, 1
+  	Endif
+  Ghost Object On XLoop
+  Set Object Light XLoop, 0 : Set Object Ambient XLoop, 0 : Set Object Fog XLoop, 0
+  Texture Object XLoop , Rnd( 3 ) + 1
+  Position Object XLoop , Rnd(2048)-1024 , Rnd(2048)-1024 , Rnd(2048)-1024
+  B3D Object To Billboard XLoop
+ Next XLoop
+
+Rem Now, we load a simple skybox.
+Load Object "Objects\Skybox.x" , 51
+Set Object Light 51, 0 : Set Object Ambient 51, 0 : Set Object Fog 51, 0
+Set Object Cull 51, 0
+
+Rem Main demo loop.
+Repeat
+  Set Cursor 0, 0 : Print "FPS : ", Screen FPS()
+  Print "Press '1' for Sync Rate 60"
+  Print "Press '2' for Sync Rate 0"
+  Print "Move the camera using arrow keys"
+  Print "Use mouse buttons to move forward(left) and backward(right)"
+  Rem Sync rate changes.
+  Select Scancode()
+  	 Case 2 : Sync Rate 60 : EndCase
+  	 Case 3 : Sync Rate 0 : EndCase
+  	EndSelect
+  Rem Move the camera using arrow keys and mouse buttons.
+  XAdd# = ( UpKey() - DownKey() ) / 1.25 : YAdd# = ( RightKey() - LeftKey() ) / 1.25
+  YAngle# = WrapValue( Yangle# + YAdd# ) : XAngle# = WrapValue( Xangle# + XAdd# )
+  Rotate Camera XAngle# , YAngle# , 0
+  XMove# = ( ( MouseClick() = 1 ) - ( MouseClick() = 2 ) ) * 5.0
+  Move Camera XMove#
+  Rem Update the billboards.
+  B3D Update Billboards
+
+  Rem Check if object is far, we replace it in opposite with the camera position.
+  XCam = Camera Position X() : YCam = Camera Position Y() : ZCam = Camera Position Z()
+  For XLoop = 1 to 50
+    XPos = Object Position X( XLoop ) : YPos = Object Position Y( Xloop ) : ZPos = Object Position Z( Xloop )
+    If XPos > XCam + 1023 : XPos = XPos - 2048 : Else : If XPos < XCam - 1023 : XPos = XPos + 2048 : Endif : Endif
+    If YPos > YCam + 1023 : YPos = YPos - 2048 : Else : If YPos < YCam - 1023 : YPos = YPos + 2048 : Endif : Endif
+    If ZPos > ZCam + 1023 : ZPos = ZPos - 2048 : Else : If ZPos < ZCam - 1023 : ZPos = ZPos + 2048 : Endif : Endif
+    Position Object XLoop, XPos, YPos, ZPos
+   Next XLoop
+  Rem Position the skybox to fit the camera position.
+  Position Object 51, XCam, YCam, ZCam
+  Sync
+ Until SpaceKey() = 1
+
+Rem Remove all used objects.
+For XLoop = 50 To 1 Step - 1
+  Delete Object XLoop
+  B3D Remove Object From Billboard XLoop
+Next XLoop
+
+Rem Remove the images.
+For XLoop = 1 to 4
+  Delete Image XLoop
+ Next XLoop
+Rem End
+End

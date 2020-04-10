@@ -1,0 +1,61 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Rain Particles Support Demo
+Rem 
+Rem We load the image to make our Billboarded drops.
+Set Display Mode 640 , 480 , 32
+Sync On : sync Rate 60
+Repeat : Sync : Until Screen Invalid() = 0
+
+Color BackDrop 0 : Set Camera Range 1 , 1024
+REM Fog On : Fog Color Rgb( 0 , 0 , 16 ) : Fog Distance 1024
+Fog On
+Set Point Light 0 , 0.0 , -0.1 , 0.0
+Position Light 0, 0, 50000, 0
+
+GROUND = IMG Load Image( "graphics\multi018.jpg" )
+REM We check if DBProBasic3DExtends.dll is correctly initialized
+  OBJECT1 = B3D Make Object Plain( 1024 , 1024 )
+  Rotate Object OBJECT1 , 270 , 0 , 0
+  Texture Object OBJECT1 , GROUND
+  Particle1 = P3D Add Particle( 100, 0, 8 )
+  P3D Set Particle Area Particle1, 1024, 1024, 1024
+  P3D Position Emitter Particle1, 0, 256, 0
+  P3D Set As Rain Particle Particle1
+
+Count = 0
+For XLoop = 1 to 32
+  If Object Exist( XLoop ) = 1 Then Inc Count , 1
+ Next XLoop
+
+Rem Main Demo Loop
+Repeat
+  Set Cursor 0 , 0 : Print "Frame Rate : ", Screen Fps()
+  Print "Press 1 to jump to 60 fps max"
+  Print "Press 2 to jump to max fps"
+  D$ = Inkey$()
+  If d$="1" Then Sync Rate 60
+  If d$="2" Then Sync Rate 0
+  XAdd# = ( UpKey() - DownKey() ) / 1.25 : YAdd# = ( RightKey() - LeftKey() ) / 1.25
+  YAngle# = WrapValue( Yangle# + YAdd# ) : XAngle# = WrapValue( Xangle# + XAdd# )
+  Rotate Camera XAngle# , YAngle# , 0
+  XMove# = ( ( MouseClick() = 1 ) - ( MouseClick() = 2 ) ) * 5.0
+  Move Camera XMove#
+  P3D Position Emitter 1, Camera Position X(), 256, Camera Position Z()
+
+  P3D Update Particles
+  B3D Update Billboards
+
+  Sync
+
+ Until SpaceKey() = 1
+
+
+Particle1 = P3D Delete Particle( Particle1 )
+RAIN = IMG Delete Image( RAIN ) 
+End

@@ -1,0 +1,3 @@
+Methods non correspondantes (dans le jeu Basic2D (XGUI/XWINDOW/XFONT) il y a des méthodes d'autres classes à supprimer
+
+Vérifier les variables créées ( qu'il y ait toujours l'identificateur .l, .f par exemple )

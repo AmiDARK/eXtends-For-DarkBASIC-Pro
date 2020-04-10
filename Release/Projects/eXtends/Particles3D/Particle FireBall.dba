@@ -1,0 +1,84 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Flames Particles Support Demo : Show how to use Flames preset to make fireballs.
+Rem 
+Set Display Mode 640 , 480 , 32
+Sync On : sync Rate 60 : Autocam Off
+Repeat : Sync : Until Screen Invalid() = 0
+RESULT = Initialize eXtends( "eiojrgbzuiazuyebweuize", "LKVMXKCedQCeXZNHeLYJfJIPQ" )
+
+Color BackDrop 0 : Set Camera Range 1 , 1024
+REM Fog On : Fog Color Rgb( 0 , 0 , 16 ) : Fog Distance 1024
+Fog On
+Set Point Light 0 , 0.0 , -0.1 , 0.0
+Position Light 0 , 0 , 50000 , 0
+
+FIREBALL = IMG Load Image( "graphics\FireBall.bmp" )
+GROUND = IMG Load Image( "graphics\multi018.jpg" )
+REM We check if DBProBasic3DExtends.dll is correctly initialized
+  OBJECT1 = B3D Make Object Plain( 1024 , 1024 )
+  Rotate Object OBJECT1 , 270 , 0 , 0
+  Texture Object OBJECT1 , GROUND
+  Particle1 = P3D Add Particle( 64, 0, 64 )
+  P3D Position Emitter Particle1, -512, 160, 0
+  P3D Set Particle Area Particle1, 80, 200, 80
+  P3D Set As Flames Particle Particle1
+REM  P3D Hide Particle Particle1
+Count = 0
+For XLoop = 1 to 32
+  If Object Exist( XLoop ) = 1 Then Inc Count , 1
+ Next XLoop
+
+Position Camera -130, 72, -465
+YRotate Camera 320 : YAngle# = 320
+Rem Main Demo Loop
+Repeat
+  Set Cursor 0 , 0
+  Print "Press Control key to launch Fireball"
+  Print "Press 1/2 to switch to 60/Max fps "
+  Print "Frame Rate : ", Screen Fps()
+  D$ = Inkey$()
+  If d$="1" Then Sync Rate 60
+  If d$="2" Then Sync Rate 0
+  XAdd# = ( UpKey() - DownKey() ) / 1.25 : YAdd# = ( RightKey() - LeftKey() ) / 1.25
+  YAngle# = WrapValue( Yangle# + YAdd# ) : XAngle# = WrapValue( Xangle# + XAdd# )
+  Rotate Camera XAngle# , YAngle# , 0
+  XMove# = ( ( MouseClick() = 1 ) - ( MouseClick() = 2 ) ) * 5.0
+  Move Camera XMove#
+  Rem Turn On "Fireball" mode
+  If ControlKey() = 1 And Control = 0
+    P3D Set Primitive Mode Particle1, 0.0, 0.01, 0.0
+  	 Control = 1 : XPos# = -512
+  	 P3D Position Emitter Particle1, XPos#, 160, 0
+REM    P3D Show Particle Particle1
+  	Endif
+  OldTime = NewTime : NewTime = Timer()
+  If OldTime = 0 : OldTime = NewTime : Endif
+  DelayFactor# = ( NewTime - OldTime ) / 100.0
+  If Control = 1
+  	 XPos# = XPos# + 24.0 * DelayFactor#
+  	 P3D Position Emitter Particle1, XPos#, 160, 0
+  	 If XPos# > 512.0
+REM      P3D Hide Particle Particle1
+      P3D Position Emitter Particle1, -512, 160, 0
+      P3D Set As Flames Particle Particle1
+  	 	Control = 0
+  	  Endif
+  	Endif
+  P3D Update Particles
+  B3D Update Billboards
+
+  Sync
+
+ Until SpaceKey() = 1
+
+
+OBJECT1 = B3D Delete Object( OBJECT1 )
+Particle1 = P3D Delete Particle( Particle1 )
+FIREBALL = IMG Delete Image( FIREBALL ) : GROUND = IMG Delete Image( GROUND )
+End

@@ -1,0 +1,18 @@
+Rem ****************************************************************************************************
+Function GetCollisions()
+  Rem We calculate collisions only with the used asteroids.
+  AsteroidsCount = 5 + ( Player.Score / 400 )
+  If AsteroidsCount > 32 Then AsteroidsCount = 32
+  For XLoop = 1 To AsteroidsCount
+  	 If Asteroids( XLoop ).Active = 1
+      Rem We firstly check collision on Z Axis 
+      If Asteroids( XLoop ).ZPos < ( Player.ZPos + 48 ) And Asteroids( XLoop ).ZPos > ( Player.ZPos - 32 )
+        Rem Secondly, we check collision on Y Axis
+        If Abs( Asteroids( XLoop ).Ypos - Player.YPos ) < 22.4
+          Play Sound Player.ExpSound
+          ExitFunction 1
+         Endif
+       Endif
+     Endif
+   Next XLoop
+ EndFunction 0

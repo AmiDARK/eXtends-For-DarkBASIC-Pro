@@ -1,0 +1,53 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Images Support Demo
+Rem
+Sync On : Sync Rate 60
+AutoCam Off
+Rem
+  Object1 = IMG Load Image( "Graphics\Image01.jpg", 0 )
+  Object2 = IMG Load Image( "Graphics\Image02.jpg", 0 )
+  Object3 = IMG Load Image( "Graphics\Image03.jpg", 0 )
+  Object4 = IMG Load Image( "Graphics\Image04.jpg", 0 )
+  Object5 = IMG Load Image( "Graphics\Image05.jpg", 0 )
+  Repeat   
+    D$ = Inkey$()
+    Rem Depending on which key the user press, we create an object.
+    Select D$
+      Case "q"
+        If Spr1 = 0 : Spr1 = SPR Sprite( 0, 128, Object1 ) : Set Sprite Spr1, 1, 0 : endif
+       EndCase
+      Case "w"
+        If Spr2 = 0 : Spr2 = SPR Sprite( 64, 128, Object2 ) : Set Sprite Spr2, 1, 0 : endif
+       EndCase
+      Case "e"
+        If Spr3 = 0 : Spr3 = SPR Sprite( 128, 128, Object3 ) : Set Sprite Spr3, 1, 0 : endif
+       EndCase
+      Case "r"
+        If Spr4 = 0 : Spr4 = SPR Sprite( 192, 128, Object4 ) : Set Sprite Spr4, 1, 0 : endif
+       EndCase
+      Case "t"
+        If Spr5 = 0 : Spr5 = SPR Sprite( 256, 128, Object5 ) : Set Sprite Spr5, 1, 0 : endif
+       EndCase
+      Case "a" : Spr1 = SPR Delete Sprite( Spr1 ) : EndCase
+      Case "s" : Spr2 = SPR Delete Sprite( Spr2 ) : EndCase
+      Case "d" : Spr3 = SPR Delete Sprite( Spr3 ) : EndCase
+      Case "f" : Spr4 = SPR Delete Sprite( Spr4 ) : EndCase
+      Case "g" : Spr5 = SPR Delete Sprite( Spr5 ) : EndCase
+     EndSelect
+    Cls 0 : Ink Rgb( 255, 255, 255), 0
+    Set Cursor 0, 0
+    Print "Use Q up to T to load Sprite"
+    Print "Use A up to G to delete them"
+    Print "Sprite 1 to 5 Exist ?"
+    For XLoop = 1 to 5
+      Print Sprite Exist( XLoop )
+     Next XLoop
+    Sync
+   Until SpaceKey() = 1 
+End

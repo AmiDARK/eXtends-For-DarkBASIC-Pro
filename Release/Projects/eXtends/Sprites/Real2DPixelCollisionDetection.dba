@@ -1,0 +1,182 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Real 2D Sprite Collision
+`
+Set Display Mode 640,480,16
+Sync rate 0 : Sync on : Sync : Sync
+Ink Rgb( 255, 255, 255 ), Rgb( 255, 255, 255 )
+Rem Load 2 images to make sprites.
+Load image "graphics\sprite1.bmp",1,1
+Load image "graphics\sprite2.bmp",2,1
+
+Rem Default sprites position on screen
+xpos=0 : ypos=0
+xpos2=320-16 : ypos2=200-16
+
+Rem Display sprites . . .
+Sprite 1,xpos,ypos,1
+Sprite 2,xpos2,ypos2,2
+
+Mode = 0 : CMode = 1
+Scale1# = 100.0 : Scale2# = 100.0
+Rem Beginning of the main loop . . .
+Repeat
+  cls 0
+  NewTime = Timer()
+  If NewTime - OldTime >= ( 1000 / 25 )
+    OldTime = Time : Time = NewTime
+
+    Rem Calculate demo sprite movements . . .
+    xpos=xpos+rightkey()-leftkey()
+    ypos=ypos+downkey()-upkey()
+    if xpos<0 then xpos=0
+    if xpos>640-32 then xpos=640-32
+    if ypos<0 then ypos=0
+    if ypos>480-32 then ypos=480-32
+    Rem Display sprites . . .
+    Sprite 1,xpos,ypos,1
+    Sprite 2,xpos2,ypos2,2
+
+    Rem Read Scancode to set mode
+    SCode = ScanCode()
+    Select SCode
+    	Case 2 : Mode = 0 : EndCase
+    	Case 3 : Mode = 1 : EndCase
+      Case 4 : CMode = 0 : EndCase
+      Case 5 : CMode = 1 : EndCase
+      Case 16 : Rotate Sprite 1, WrapValue( Sprite Angle( 1 ) + 1.0 ) : EndCase
+      Case 17 : Rotate Sprite 1, WrapValue( Sprite Angle( 1 ) - 1.0 ) : EndCase
+      Case 18
+        Scale1# = Scale1# - 1
+        If Scale1# < 10.0 : Scale1# = 10.0 : Endif
+        Stretch Sprite 1, Scale1#, Scale1#
+       EndCase
+      Case 19
+        Scale1# = Scale1# + 1
+        If Scale1# > 800.0 : Scale1# = 800.0 : Endif
+        Stretch Sprite 1, Scale1#, Scale1#
+       EndCase
+      Case 30 : Rotate Sprite 2, WrapValue( Sprite Angle( 2 ) + 1.0 ) : EndCase
+      Case 31 : Rotate Sprite 2, WrapValue( Sprite Angle( 2 ) - 1.0 ) : EndCase
+      Case 32
+        Scale2# = Scale2# - 1
+        If Scale2# < 10.0 : Scale2# = 10.0 : Endif
+        Stretch Sprite 2, Scale2#, Scale2#
+       EndCase
+      Case 33
+        Scale2# = Scale2# + 1
+        If Scale2# > 800.0 : Scale2# = 800.0 : Endif
+        Stretch Sprite 2, Scale2#, Scale2#
+       EndCase
+     EndSelect
+   Endif
+  Rem Calculate sprite collision . . .
+  If Mode = 0
+    _PIXELS = Fct_Sprite_Pixel_Collision(1,2, CMode )
+   Else
+    _PIXELS = SPR Get Collision( 1, 2, CMode )
+   Endif
+
+  Rem Display result . . .
+  Set cursor 0,0 : ink rgb(255,255,255),0
+  Print "Use 1-2 to switch DBPro Collision / eXtends Collision"
+  Print "Use 3-4 to switch Collision Only / Collision + Pixel Count"
+  Print "Use a-z e-r to rotate/scale sprite 1"
+  Print "Use Arrow keys to move sprite 1"
+  Print "Use q-s d-f to rotate/scale sprite 2"
+  If Mode = 0 : Print "Collision : DBPro" : Else : Print "Collision : TPC" : Endif
+  if CMode = 1 : Print "Mode : CD + CP" : Else : Print "CD" : Endif
+  if _PIXELS>0 then print "Pixel CD" else print "No Pixel CD"
+  if _PIXELS>0 then print _PIXELS," CP Count"
+  print "FPS : ",screen fps()
+  Print SCode
+  Sync
+ Until Spacekey()=1
+
+For boucle=1 to 2
+  Hide sprite boucle
+  Delete Sprite boucle
+  delete image boucle
+  SPR Free Collision boucle ` Release internal memory used by plugin for sprite collision.
+ Next Boucle
+
+End
+
+
+
+Function FCT_Sprite_Pixel_Collision(_sprite1,_sprite2, COLMODE )
+  _PIXEL=-1 : _CHECK=1
+  _memblock1=1 : _memblock2=2
+  Rem Check only if both sprites exists . . .
+  if sprite exist(_sprite1)=1 and sprite exist(_sprite2)=1
+    Rem Get Sprite #1 datas . . .
+    xp1=sprite x(_sprite1) : yp1=sprite y(_sprite1)
+    xs1=sprite width(_sprite1) : ys1=sprite height(_sprite1)
+    Rem Get Sprite #2 datas . . .
+    xp2=sprite x(_sprite2) : yp2=sprite y(_sprite2)
+    xs2=sprite width(_sprite2) : ys2=sprite height(_sprite2)
+    Rem Now Collisions will be detected only if Sprite 1 and Sprite 2 are 1 overlaped
+    if xp2>(xp1+xs1) or xp2<(xp1-xs2) then _CHECK=0
+    if yp2>(yp1+ys1) or yp2<(yp1-ys2) then _CHECK=0
+    Rem If sprites are overlaped then we make collision . ..
+    if _CHECK=1
+      _PIXEL=0
+      Rem Create 2 memblock in order to read sprites datas . . .
+      _memblock1 = MBC Make Memblock From Image( Sprite Image( _sprite1 ) )
+      _memblock2 = MBC Make Memblock From Image( Sprite Image( _sprite2 ) )
+      Rem We check for the box to read in both sprites . . .
+      if xp2>xp1
+        xstart1=xp2-xp1 : xstart2=0 : xchecksize=xs1-xstart1
+       else
+        xstart2=xp1-xp2 : xstart1=0 : xchecksize=xs2-xstart2
+       endif
+      if yp2>yp1
+        ystart1=yp2-yp1 : ystart2=0 : ychecksize=ys1-ystart1
+       else
+        ystart2=yp1-yp2 : ystart1=0 : ychecksize=ys2-ystart2
+       endif
+      Rem Now we make a loop to check all pixels . . .
+`      for yloop=0 to ychecksize
+      yloop = 0 : Repeat
+`        for xloop=0 to xchecksize
+        xloop = 0 : Repeat
+          _pix1=fct_Get_pixel_color(_memblock1,xloop+xstart1,yloop+ystart1)
+          _pix2=fct_Get_pixel_color(_memblock2,xloop+xstart2,yloop+ystart2)
+          if _pix1<>0 and _pix2<>0 then _PIXEL=_PIXEL+1
+          if _PIXEL > 0 And COLMODE = 0 : xloop = xchecksize : yloop = ychecksize : Endif
+`         next xloop
+         Inc xloop, 1 : Until xloop > xchecksize
+`       next yloop
+       Inc yloop, 1 : Until yloop > ychecksize
+      _memblock1 = MBC Delete Memblock( _memblock1 )
+      _memblock2 = MBC Delete Memblock( _memblock2 )
+     Endif
+   Endif
+ EndFunction _PIXEL
+Rem
+Function Fct_Get_Pixel_Color(_memblock,xpos,ypos)
+  _RESULT=0
+  Rem Get pixel only if memblock exist !
+  if memblock exist(_memblock)=1
+    _xs=memblock dword(_memblock,0) : _ys=memblock dword(_memblock,4)
+    _dp=memblock dword(_memblock,8) : _pixsize=_dp/8
+    Rem Get pixel only if coordinates are valids !
+    if xpos>0-1 and xpos<_xs
+      if ypos>0-1 and ypos<_ys
+        _Adress=12+(ypos*_xs*_pixsize)+(xpos*_pixsize)
+        if _Adress>-1 and _Adress<(get memblock size(_memblock)-_pixsize)
+          if _dp=8 then _RESULT=memblock byte(_memblock,_Adress)
+          if _dp=16 then _RESULT=memblock word(_memblock,_Adress)
+          if _dp=32 then _RESULT=memblock dword(_memblock,_Adress)
+         endif
+       Endif
+     Endif
+   endif
+ Endfunction _RESULT
+
+End

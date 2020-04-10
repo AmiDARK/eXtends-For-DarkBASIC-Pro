@@ -1,0 +1,96 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Cameras Demo
+Rem 
+Set Display Mode 640, 480, 32
+Sync On : sync Rate 0
+Backdrop on : Color Backdrop 0
+Rem We load the 3D Object to display using various cameras.
+CHAPEL = B3D Load Object( "Objects\Chapel.x" )
+Position Object CHAPEL, 0, 0, 0
+Rem Now we define the default camera 0 / 1/4 screen
+Set Camera View 0, 0, 0, 320, 240
+Set Camera Range 0, 1, 2048
+Position Camera 0, 0, 256, -384
+Point Camera 0, 0, 150, 0 
+
+Repeat
+  Set Cursor 0, 0 : Ink Rgb( 255, 255, 255 ), 0
+  Print "Press keys 'q','w' and 'e' to create more cameras"
+  Print "Press keys 'a','s' and 'd' to delete extra cameras"
+  Set Cursor 0, 224
+  Print "CAMERA #1 : DynamicID = 0"
+  D$ = Inkey$()
+  Rem Camera 2
+  If CAMERA2 = 0
+    If d$= "q"
+    	CAMERA2 = CMR Make Camera()
+      Position Camera CAMERA2, 256, 256, 256
+      Point Camera CAMERA2, 0, 150, 0
+      Set Camera View CAMERA2, 320, 0, 640, 240
+      Set Camera Range CAMERA2, 1, 2048
+      Color Backdrop CAMERA2, 0
+     Endif
+   Else
+    Set Cursor 320, 224 : Ink Rgb( 255, 255, 255 ), 0
+    Print "CAMERA #2 : DynamicID = ", CAMERA2   
+    If d$ = "a"
+      CAMERA2 = CMR Delete Camera( CAMERA2 )
+      Ink Rgb(0, 0, 0), 0 : Box 320, 0, 640, 240
+     Endif
+   Endif
+  Rem Camera 3
+  If CAMERA3 = 0
+    If d$= "w"
+    	CAMERA3 = CMR Make Camera()
+      Position Camera CAMERA3, -256, 256, 256
+      Point Camera CAMERA3, 0, 150, 0
+      Set Camera View CAMERA3, 0, 240, 320, 480
+      Set Camera Range CAMERA3, 1, 2048
+      Color Backdrop CAMERA3, 0
+     Endif
+   Else
+    Set Cursor 0, 240 : Ink Rgb( 255, 255, 255 ), 0
+    Print "CAMERA #3 : DynamicID = ", CAMERA3   
+    If d$ = "s"
+      CAMERA3 = CMR Delete Camera( CAMERA3 )
+      Ink Rgb(0, 0, 0), 0 : Box 0, 240, 320, 480
+     Endif
+   Endif
+  Rem Camera 4
+  If CAMERA4 = 0
+    If d$= "e"
+    	CAMERA4 = CMR Make Camera()
+      Position Camera CAMERA4, 256, 256, -256
+      Point Camera CAMERA4, 0, 150, 0
+      Set Camera View CAMERA4, 320, 240, 640, 480
+      Set Camera Range CAMERA4, 1, 2048
+      Color Backdrop CAMERA4, 0
+     Endif
+   Else
+    Set Cursor 320, 240 : Ink Rgb( 255, 255, 255 ), 0
+    Print "CAMERA #4 : DynamicID = ", CAMERA4   
+    If d$ = "d"
+      CAMERA4 = CMR Delete Camera( CAMERA4 )
+      Ink Rgb(0, 0, 0), 0 : Box 320, 240, 640, 480
+     Endif
+   Endif
+  Sync
+
+
+ Until SpaceKey() = 1
+
+Rem We delete the 3D Object
+CHAPEL = B3D Delete Object( CHAPEL )
+Rem We delete used cameras if needed.
+If CAMERA2 > 0 : CAMERA2 = CMR Delete Camera( CAMERA2 ) : Endif
+If CAMERA3 > 0 : CAMERA3 = CMR Delete Camera( CAMERA3 ) : Endif
+If CAMERA4 > 0 : CAMERA4 = CMR Delete Camera( CAMERA4 ) : Endif
+
+End
+

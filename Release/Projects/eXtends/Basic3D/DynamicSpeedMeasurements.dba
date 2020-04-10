@@ -1,0 +1,73 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Speed Measurements.
+OBJECTCOUNT = 5000
+Dim Objects( OBJECTCOUNT )
+
+Sync On : Sync Rate 0
+` Avoid speed up and down at beginning
+Repeat : Sync : Until Screen Invalid() = 0
+
+` Main loop for user function
+Time1 = Timer()
+For XLoop = 1 to OBJECTCOUNT
+  A = FreeObject()
+  Make Object Cube A, 64.0
+ Next XLoop
+Time2 = Timer()
+CreationSpeed1 = Time2 - Time1
+`
+Sync 
+`
+` Deletion speed checking
+Time3 = Timer()
+For XLoop = OBJECTCOUNT to 1 Step -1
+  Delete Object XLoop
+next xloop
+Time4 = Timer()
+DeletionSpeed1 = Time4 - Time3
+`
+Sync
+`
+` Main loop for eXtends function
+Time1 = Timer()
+For XLoop = 1 to OBJECTCOUNT
+  Objects( XLoop ) = B3D Make Object Cube( 64.0 )
+ Next XLoop
+Time2 = Timer() 
+CreationSpeed2 = Time2 - Time1
+`
+Sync
+`
+` Deletion speed checking
+Time3 = Timer()
+For XLoop = OBJECTCOUNT to 1 Step -1
+  Objects( XLoop ) = B3D Delete Object( Objects( XLoop ) )
+ Next xloop
+Time4 = Timer()
+DeletionSpeed2 = Time4 - Time3
+`
+Sync
+`
+Repeat
+  Cls 0 : Set Cursor 0, 0
+  Print "Calculation for "+ Str$( OBJECTCOUNT ) + " objects"
+  Print "Custom Creation Duration : ", CreationSpeed1
+  Print "eXtend Creation Duration : ", CreationSpeed2
+  Print "Custom Deletion Duration : ", DeletionSpeed1
+  Print "eXtend Deletion Duration : ", DeletionSpeed2
+  Sync
+ until SpaceKey() = 1
+ 
+End
+
+function FreeObject()
+  Number = 0
+  Repeat : Inc Number : Until Object Exist( Number ) = 0
+ Endfunction Number
+ 

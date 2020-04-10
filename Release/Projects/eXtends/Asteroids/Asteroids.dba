@@ -1,0 +1,123 @@
+Rem Data for player ship
+Type Player_Type
+  YPos As Float   ZPos As Float   Object As Integer   Score As Float   OldScore As Float
+  YSpeed As Float   XSpeed As Float   ETexture As Integer   Explosion As Integer   VLight As Integer
+  Particle As Integer   PTexture As Integer  GameOverImage As Integer   ScrollSpeed As Float
+  GlassObject As Integer   EXPSound As Integer
+ EndType
+Global Player As Player_Type
+
+Rem Where to store Asteroids data
+Type Asteroids_Type
+  YPos As Float   ZPos As Float   Active As Integer   Object As Integer
+  Xangle As Float   YAngle As Float   ZAngle As Float   XRot As Float   YRot As Float   ZRot As Float
+ EndType
+Dim Asteroids( 32 ) As Asteroids_Type
+
+Rem Data to memorize for XGUI System
+Type XGui_Type
+  Loaded As Integer   Score As Integer
+ EndType
+Global XGui As XGui_Type
+
+
+Disable EscapeKey : Disable SystemKeys
+
+
+
+Rem Default Ambient Settings.
+Sync On : Sync Rate 0 : Fog On : AutoCam Off
+Set Camera Range 0, 1, 30000
+Clear Camera View 0, Rgb( 0, 0, 0 )
+BackDrop On 0 : Color Backdrop 0, 0
+Repeat : Sync : Until Screen Invalid() = 0 : Rem to prevent High frame rate on beginning.
+XGui Mipmap Mode 1 ` Will allow transparency for XGui and XFont.
+
+SetupPlayer() : Rem Setup of the player ship.
+SetupAsteroids() : Rem Setup of the asteroids.
+SetupGUI() : Rem setup Graphic User Interface and 16x16 pixels Bitmap Font.
+CAMERA1 = SetupRTSkySystem() : Rem Setup of the Real Time Sky System.
+
+Rem Default Game Camera View position.
+Position Camera CAMERA1, 0.0, 0.0, 0.0
+Rotate Camera CAMERA1, 0.0, 90.0, 0.0
+OldTimer = Timer() : Rem Data for ground/background scrolling speed.
+L3D Lock Light 0
+Rem Main Demo loop
+Repeat
+  Repeat : Sync : Until Screen Invalid() = 0 : Rem to prevent High frame rate on beginning.
+  Rem Main Game Loop
+  repeat
+    Rem Calculate the delay between 2 frames.
+    NewTimer = Timer() : Delay = NewTimer - OldTimer : OldTimer = NewTimer
+    Key = ScanCode()
+    If Key = 3 : Sync Rate 0 : Endif
+
+    Rem Display Frame Rate using Bitmap Font #1
+    XFont Set Current Font 1
+    XFont Set Cursor 0, Bitmap Height( 0 ) - 16
+    XFont Print "SCREEN FPS : " + Str$( Screen FPS() )
+
+    Rem Display Demonstration Informations Using Bitmap Font #2
+    XFont Set Current Font 2
+    XFont Set Cursor ( Bitmap Width( 0 ) / 2 ) - ( 16 * 8 ), 8
+    XFont Print "ASTEROIDS EXTENDS DLL PLUGIN DEMO"
+    XFont Set Cursor ( Bitmap Width( 0 ) / 2 ) - ( 12 * 8 ), 20
+    XFont Print "BY FREDERIC CORDIER 2006"
+    Rem Play faster to win more score...
+    If ControlKey() = 1
+       Inc Player.ScrollSpeed, 0.005
+       If Player.ScrollSpeed > 2.0 Then Player.ScrollSpeed = 2.0
+     Else
+      Dec Player.ScrollSpeed, 0.01
+       If Player.ScrollSpeed < 1.0 Then Player.ScrollSpeed = 1.0
+     Endif
+    Rem Calling Main functions to make the game work correctly.
+    UpdatePlayer( Delay ) : Rem Update Player Actions
+    UpdateAsteroids( Delay ) : Rem Update Asteroids... Add a new one every seconds.
+    GAMEOVER = GetCollisions() : Rem Check if player collide with an asteroid.
+    RTS Update Skybox : Rem Update the Real-Time Sky System
+    Scroll Object Texture RTS Get Loaded Object( 9 ), abs( 0.00005 * DELAY * Player.ScrollSpeed ), 0.000 : Rem BackGround
+    Scroll Object Texture RTS Get Loaded Object( 6 ), 0.000 , abs( 0.00025 * DELAY * Player.ScrollSpeed ) : Rem Ground
+    XGui Update
+    Count = L3D Display Lights()
+    Rem Vertical Synchro
+    Sync
+   Until GAMEOVER = 1
+  Position Object Player.Object, 0.0, -64.0, 0.0
+  Position Object Player.GlassObject, 0.0, -64.0, 0.0
+  P3D Position Emitter Player.Particle, -128.0, -64.0, 0.0
+  Position Object Player.Explosion, 256.0, Player.YPos, Player.ZPos
+  Rem Handle the explosion texture animation.
+  DefaultTime = Timer() : AnimCount = 0
+  Texture Object Player.Explosion, Player.ETexture : Rem Re-Texture to init texture scroll data.
+  Rem Choose Espace to restart or EscapeLey to quit
+  Repeat
+    Delay = ( Timer() - DefaultTime )
+    If Delay > 100
+       DefaultTime = Timer() : Inc AnimCount, 1
+      If AnimCount < 10 Then Scroll Object Texture Player.Explosion, 0.1, 0.0
+     Endif
+      Paste Image Player.GameOverImage, ( Bitmap Width( 0 ) / 2 ) - 128,  ( Bitmap Height( 0 ) / 2 ) - 32, 1
+    P3D Update Particles : B3D Update Billboards
+    XGui Update
+    Sync
+    CHOICE = ( SpaceKey() = 1 ) - ( EscapeKey() = 1 )
+   Until CHOICE <> 0
+  Position Object Player.Explosion, 0.0, -64.0, 0.0
+  Rem Turn off all asteroids if player restart a new game
+  SetupAsteroids()
+  Rem Initialize player data for default settings.
+  OldScore = Player.Score
+  Player.Score = 0 : Player.XSpeed = 0 : Player.YSpeed = 0
+  Player.ZPos = 0.0 : Player.YPos = 0.0
+  OldTimer = Timer()
+ Until CHOICE = -1
+Sync
+ClearAsteroids()
+ClearPlayer()
+RTS Clear Skybox
+Sync
+Hide Window
+EXIT PROMPT "Your score was : " + Str$( Int( OldScore ) ), "Thanks to have played small DBProExtend's Asteroid Game"
+End

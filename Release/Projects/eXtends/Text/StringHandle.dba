@@ -1,0 +1,39 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Sample to show string handling using DBProTextExtends.dll
+Rem
+Sync on : Sync Rate 60
+
+  Repeat
+    MYTEXT$ = "C:\Windows\System\CMD.exe"
+    FILENAME$ = STR Extract Filename( MYTEXT$ )
+    DRAWER$ = STR Extract Drawer( MYTEXT$ )
+    FILENAMEONLY$ = STR Remove File Extention( FILENAME$ )
+    FILENAMEEXT$ = STR Get File Extension( FILENAME$ )
+    FIRSTLASHPOS = STR Find Char( MYTEXT$, "\", 1 )
+    THIRDSLASHPOS = STR Find Char( MYTEXT$, "\", 3 )
+    MIDDLE$ = STR Get Middle( MYTEXT$, FIRSTLASHPOS+1,  THIRDSLASHPOS - FIRSTLASHPOS -1 )
+    LEFTFROMSPOT$ = STR Get Left From( MYTEXT$, "." )
+    RIGHTFROMSPOT$ = STR Get Right From( MYTEXT$, "." )
+      Cls : Set Cursor 0, 0
+    Print "Original Text               : " , MYTEXT$
+    Print "FileName                    : " , FILENAME$
+    Print "Drawer                      : " , DRAWER$
+    Print "Filename without extension  : " , FILENAMEONLY$
+    Print "Filename extension          : " , FILENAMEEXT$
+    Print "First \ position in text    : " , FIRSTLASHPOS
+    Print "Last \ position in text     : " , THIRDSLASHPOS
+    Print "Text between 1st and Last \ : " , MIDDLE$
+    Print "Left from .                 : " , LEFTFROMSPOT$
+    Print "Right from .                : " , RIGHTFROMSPOT$
+    Print
+    Print "Press Space Key to quit"
+
+    Sync
+   Until SpaceKey() = 1
+End

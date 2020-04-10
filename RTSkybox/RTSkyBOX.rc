@@ -1,0 +1,69 @@
+
+STRINGTABLE
+{
+1, 	"RTS Initialized[%L%RTSkybox_Init%"
+2, 	"RTS Set Clock%LLF%RTS_RealTime_SetClock%Hour, Minutes, TimeExpansion(f)"
+3, 	"RTS Get Day[%L%RTS_GetDay%"
+4, 	"RTS Get Hour[%L%RTS_GetHour%"
+5, 	"RTS Get Minutes[%L%RTS_GetMinutes%"
+6, 	"RTS Get Seconds[%L%RTS_GetSecunds%"
+7, 	"RTS Set Wind Speed%FF%RTS_SetWind%XSpeed(f), ZSpeed(f)"
+8, 	"RTS Clear Skybox%0%RTS_ClearRTSkybox%"
+9, 	"RTS Setup Skybox%SL%RTS_RealTimeSky_Setup%SkyBoxFile$, CameraMode"
+10, 	"RTS Update Skybox%0%RTS_RealTimeSky%"
+11, 	"RTS Fog On%0%RTS_SetFogControlOn%"
+12, 	"RTS Fog Off%0%RTS_SetFogControlOff%"
+13, 	"RTS Fog Distance%F%RTS_SetFogDistance%Distance(f)"
+14, 	"RTS Fog Color%LLL%RTS_SetFogColor%Red, Green, Blue"
+15, 	"RTS Get Loaded Object[%LL%RTS_GetObjectLoaded%ObjectID[0-10]"
+}
+
+
+STRINGTABLE
+{
+16, 	"RTS Fog Color%LLLLLL%RTS_SetFogColorEx%Red, Green, Blue, NightRed, NightGreen, NightBlue"
+17, 	"RTS Set Cloud Density%F%RTS_CloudPersistence%CloudsDensity#"
+18, 	"RTS Set Mist Density%F%RTS_SetMistAlpha%MistDensity#"
+19, 	"RTS Set Day%L%RTS_SetDay%ActualDay"
+20, 	"RTS Set Hour%L%RTS_SetHour%ActualHour"
+21, 	"RTS Set Minutes%L%RTS_SetMinutes%ActualMinute"
+22, 	"RTS Set Seconds%L%RTS_SetSecunds%ActualSecond"
+23, 	"RTS Set Time Expansion%F%RTS_SetTimeExpansion%TimeExpansion(f)"
+24, 	"RTS Shadow Shading On%0%RTS_EnableShadowShadings%"
+25, 	"RTS Shadow Shading Off%0%RTS_DisableShadowShadings%"
+26, 	"RTS Set Auto Zoom%F%RTS_SetAutoZoom%ZoomFactor#"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProRTSKYBOXeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", "support@TheGameCreators.com"
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

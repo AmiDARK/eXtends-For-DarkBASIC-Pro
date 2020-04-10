@@ -1,0 +1,40 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Old Super Nintendo Mosaics Style Demonstration
+Rem
+set display mode 640,480,16
+sync rate 0 ; sync on
+Rem
+load Image "graphics\SAF.jpg", 1, 1
+Paste Image 1, 0, 80
+
+Set cursor 0,0
+Center text (bitmap width(0)/2),0,"DarkBASIC Professional - Extends PlugIn"
+Center text (bitmap width(0)/2),12,"Mosaics Effect Demonstration"
+Center text (bitmap width(0)/2),24,"Press spacekey to quit"
+Center Text (bitmap width(0)/2),36,"Press CTRL-SHIFT to Enable/Disable noise"
+Center Text (bitmap width(0)/2),48,"Press 1-0 to decrease/increase Mosaic value"
+
+Rem
+sync
+Repeat
+  _key=scancode()
+  if _key>1 and _key<14
+    _mos=_key-1
+    Image = IMG Mosaic( 1, _mos, _mode, 2 )
+   endif
+  If controlkey() = 1 : _mode = 1 : Endif
+  If ShiftKey() = 1 : _mode = 0 : Endif
+  if Image exist(2)=1 then Paste Image 2, 0, 80
+  set cursor 0,80
+  print "Mosaic value : ";_mos
+  If _mode = 1 : Print "Noise mode   : Enabled" : Else : Print "Noise mode   : Disabled" : Endif
+  Print "Frame Rate   : ", Screen FPS()
+  sync
+ until spacekey()=1
+End

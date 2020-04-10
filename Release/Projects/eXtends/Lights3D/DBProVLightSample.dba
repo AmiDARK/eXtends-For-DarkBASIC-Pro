@@ -1,0 +1,77 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Virtual Lights, Halos and custom lights Support Demo
+Rem
+Sync On : sync Rate 60
+Color BackDrop Rgb( 0, 0, 0 )
+Color Ambient Light 0 : Set Ambient Light 25
+AutoCam Off
+
+REM Fog On : Fog Distance 512 : Fog Color Rgb( 8, 16, 32 )
+  Dim Halo(4)
+  Halo(1) = IMG Load Image( "Objects\Halo01.jpg" )
+  Halo(2) = IMG Load Image( "Objects\Halo02.jpg" )
+  Halo(3) = IMG Load Image( "Objects\Halo03.jpg" )
+  Halo(4) = IMG Load Image( "Objects\Halo04.jpg" )
+
+  Rem We create the ground and positionning object.
+  FloorObject = B3D Load Object( "Objects\Floor.x" )
+  Follower = B3D Make Object Cube( 16 )
+  Set Object Light Follower, 0 : Set Object Ambient Follower, 0 : Set Object Fog Follower, 0
+
+  Rem Top view camera
+  Camera2 = CMR Make Camera()
+  Set Camera View Camera2, 800-320, 0, 800, 240
+  Color BackDrop Camera2, 0
+
+  Rem Default Camera View position.
+  L3D Set Control Camera 0
+  L3D Set Visibility Range 1024.0
+  Position Camera 0, 16, 0 : Rotate Camera 0, 0, 0
+
+  Rem We add 72 virtual lights.
+  XPos = -1024 : ZPos = -1024
+  For XLoop = 1 to 72
+    XPos = XPos + 256
+    If Xpos = 1280 : XPos = -1024 : ZPos = ZPos + 256 : Endif
+    NULL = L3D Add Virtual Light( XPos, 32, ZPos, 256, 255-rnd(64), 255-rnd(64), 255-rnd(64), 0 )
+    L3D Set Virtual Light Halo NULL, Halo( Rnd( 3 ) + 1 )
+    LightType = Rnd( 4 )
+    Select LightType
+      Case 0 : L3D Set Virtual Fixed Light NULL : EndCase
+      Case 1 : L3D Set Virtual Flame Light NULL : EndCase
+      Case 2 : L3D Set Virtual Pulse Light NULL : EndCase
+      Case 3 : L3D Set Virtual Flash Light NULL : EndCase
+     EndSelect
+   Next XLoop
+  Sync
+  VCOUNT = L3D Get Virtual Light Count()
+  Rem Main demo loop.
+  Repeat
+    Set Cursor 0, 0
+    Print "Total Virtual Lights : " , VCOUNT
+    COUNT = L3D Display Lights()
+    Print "Total Displayed Lights : " , COUNT
+    Print "Camera Position : ", Int( Camera Position X() ), " / ", Int( Camera Position Y() ), " / ", Int( Camera Position Z() )
+    Position Camera Camera2, Camera Position X(), 768, Camera Position Z()
+    Point Camera Camera2, Camera Position X(), 0, Camera Position Z()
+    Position Object Follower, Camera Position X(), 8, Camera Position Z()
+    For XLoop = 1 to COUNT
+      If Light exist( XLoop ) = 1
+        Print "Light #" , XLoop , " : " , Light Position X( XLoop ) , " / ", Light Position Y( Xloop ) , " / " , Light Position Z( XLoop )
+       Endif
+     Next XLoop
+    Color Light 0, 0
+    YAngle# = WrapValue( Camera Angle Y() + RightKey() - LeftKey() )
+    YRotate Camera YAngle#
+    Move Camera UpKey() - DownKey()
+    Sync
+   Until SpaceKey() = 1
+  L3D Clear Virtual Lights
+  FloorObject = B3D Delete Object( FloorObject )
+End

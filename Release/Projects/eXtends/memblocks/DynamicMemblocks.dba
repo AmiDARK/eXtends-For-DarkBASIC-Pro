@@ -1,0 +1,54 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Memblocks Support Demo
+Rem
+Sync On : Sync Rate 60
+AutoCam Off
+
+Image1 = IMG Load Image( "Graphics\Image01.jpg", 1 )
+Image2 = IMG Load Image( "Graphics\Image01.jpg", 1 )
+Image3 = IMG Load Image( "Graphics\Image01.jpg", 1 )
+Image4 = IMG Load Image( "Graphics\Image01.jpg", 1 )
+Image5 = IMG Load Image( "Graphics\Image01.jpg", 1 )
+Rem
+  Repeat   
+    D$ = Inkey$()
+    Rem Depending on which key the user press, we create an object.
+    Select D$
+      Case "q"
+        If Object1 = 0 Then Object1 = MBC Make Memblock From Image( Image1 )
+       EndCase
+      Case "w"
+        If Object2 = 0 Then Object2 = MBC Make Memblock From Image( Image2 )
+       EndCase
+      Case "e"
+        If Object3 = 0 Then Object3 = MBC Make Memblock From Image( Image3 )
+       EndCase
+      Case "r"
+        If Object4 = 0 Then Object4 = MBC Make Memblock From Image( Image4 )
+       EndCase
+      Case "t"
+        If Object5 = 0 Then Object5 = MBC Make Memblock From Image( Image5 )
+       EndCase
+      Case "a" : Object1 = MBC Delete Memblock( Object1 ) : EndCase
+      Case "s" : Object2 = MBC Delete Memblock( Object2 ) : EndCase
+      Case "d" : Object3 = MBC Delete Memblock( Object3 ) : EndCase
+      Case "f" : Object4 = MBC Delete Memblock( Object4 ) : EndCase
+      Case "g" : Object5 = MBC Delete Memblock( Object5 ) : EndCase
+     EndSelect
+    Cls
+    Set Cursor 0, 0
+    Print "Use Q up to T keys to create Memblock from Image"
+    Print "Use A up to G keys to delete them"
+    Print "Memblock 1 to 5 Exist ?"
+    For XLoop = 1 to 5
+      Print Memblock Exist( XLoop )
+     Next XLoop
+    Sync
+   Until SpaceKey() = 1 
+End

@@ -1,0 +1,44 @@
+
+STRINGTABLE
+{
+1, 	"CMR Initialized[%L%CMR_Init%"
+2, 	"CMR Clear All Camera%0%CMR_Clear%"
+3, 	"CMR Exist Camera Count[%L%CMR_Count%"
+4, 	"CMR Delete Camera[%LL%CMR_Delete%Camera Number"
+5, 	"CMR Make Camera[%L%CMR_DynamicMake%"
+6, 	"CMR Clone Camera[%L%CMR_DynamicClone%Source Camera"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProCameraeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

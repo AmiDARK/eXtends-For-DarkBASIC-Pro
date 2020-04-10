@@ -1,0 +1,15 @@
+[XWINDOW_SKIN]
+FFRpg_Style
+Border_topleft.bmp
+Border_top.bmp
+Border_TopRight.bmp
+Border_Left.bmp
+Background64.bmp
+Border_Right.bmp
+Border_BottomLeft.bmp
+Border_Bottom.bmp
+Border_BottomRight.bmp
+border_title.bmp
+Dragging.bmp
+Close.bmp
+[END_XWINDOW_SKIN]

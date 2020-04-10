@@ -1,0 +1,84 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Real time SKY System
+Set Display Mode 640, 480, 32
+Sync On : Sync Rate 60
+Color Backdrop 0 : Clear Camera View 0
+BackDrop Off
+Fog On
+CLOUDP = 25
+Dim OBJ( 7 )
+
+Repeat
+  Cls 0 : Set Cursor 0,0 : Ink Rgb( 255, 255, 255 ), 0
+  Print "Real Time SkySystem Ver1.0 by Frederic Cordier (c)2006"
+  Print "Select which skysystem you want to see :"
+  Print "1 = Big city - polluted"
+  Print "2 = Snow mountains - Big blue"
+  Print "3 = Massive mountains"
+  Print "4 = Desert mountains"
+  Print "5 = Desert mountains 2"
+  Sync
+  Input Choice
+Until Choice > 0 and Choice < 6
+RTS Fog On
+Backdrop On
+Select Choice
+  Case 1 : RTS Setup Skybox "RTS_BigCity", 0 : EndCase
+  Case 2 : RTS Setup Skybox "RTS_SnowMountain", 0 : EndCase
+  Case 3 : RTS Setup Skybox "RTS_MassiveMountain", 0 : EndCase
+  Case 4 : RTS Setup Skybox "RTS_DesertMountain", 0 : EndCase
+  Case 5 : RTS Setup Skybox "RTS_DesertMountain2", 0 : EndCase
+ EndSelect
+RTS Set Clock 3 , 0 , 1.0
+RTS Set Wind Speed 0.0001, 0.00005
+Set Camera Range 10 , 110000
+Clear Camera View 0 , Rgb( 0 , 0 , 0 )
+Position Camera 0 , 0 , 0
+CLOUDS = RTS Get Loaded Object( 1 )
+repeat
+  Set Cursor 0 , 0
+  Print "Frame Rate : " , Screen Fps()
+  Print "View : " , XAngle , " / " , YAngle
+  Print "Real Time Hour : " , RTS Get Hour() , "h" , RTS Get Minutes() , "m" , RTS Get Seconds() , "s"
+  D$ = Inkey$()
+  CLOUDP = CLOUDP + ( D$ = "z" ) - ( D$ = "a" )
+  If CLOUDP < 0 : CLOUDP = 0 : Else : If CLOUDP > 100 : CLOUDP = 100 : Endif : Endif
+  MISTP = MISTP + ( D$ = "s" ) - ( D$ = "q" )
+  If MISTP < 0 : MISTP = 0 : Else : If MISTP > 100 : MISTP = 100 : Endif : Endif
+  RTS Set Cloud Density CLOUDP
+  RTS Set Mist Density MISTP
+  Print "Clouds, Mist : ", CLOUDP, " / ", MISTP
+  For XLoop = 1 to 8
+    MyObj = RTS Get Loaded Object( XLoop )
+    Print Object Size X( MyObj, 0 ), " ", Object Size Y( MyObj, 0 ), " ", Object Size Z( MyObj, 0 )
+    Print Object Size X( MyObj, 1 ), " ", Object Size Y( MyObj, 1 ), " ", Object Size Z( MyObj, 1 )
+   Next XLoop
+
+  Set Current Camera 0
+  XAngle = WrapValue( XAngle + UpKey() - DownKey() )
+  YAngle = WrapValue( YAngle + RightKey() - LeftKey() )
+  OldMouseclic = MouseClic
+  MouseClic = MouseClick()
+  If MouseClic = 2
+    If OldMouseClic = 2
+      XAngle = WrapValue( Xangle + MouseMoveY() )
+    	YAngle = WrapValue( YAngle + MouseMoveX() )
+     Else
+    	OY = MouseMoveX() : OX = MouseMoveX()
+     Endif
+   Endif
+  Rotate Camera XAngle , YAngle , 0
+`  MOVEFORWARD = -( ( MouseClick() = 1 ) - ( MouseClick() = 2 ) ) * 6
+  If MOVEFORWARD <> 0 Then Move Camera MOVEFORWARD  
+  Position Camera Camera Position X(), 0, Camera Position Z()
+  RTS Update Skybox
+  Sync
+ Until SpaceKey() = 1
+RTS Clear Skybox
+End

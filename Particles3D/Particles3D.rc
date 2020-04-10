@@ -1,0 +1,73 @@
+
+STRINGTABLE
+{
+1, 	"P3D Initialized[%L%Particles3D_Init"
+2, 	"P3D Add Particle[%LLLF%P3D_AddParticles%Count, Texture, ParticleSize"
+3, 	"P3D Position Emitter%LLLL%P3D_PositionParticles%ParticleID, XPos, YPos, ZPos"
+4, 	"P3D Set Particle Area%LLLL%P3D_SetEmitterRange%ParticleID, XSize, YSize, ZSize"
+5, 	"P3D Set Primitive Mode%LFFF%P3D_SetParticlePath%ParticleID, XAdd, YAdd, ZAdd"
+6, 	"P3D Set As Flames Particle%L%P3D_SetAsFlames%ParticleID"
+7, 	"P3D Set As Smoke Particle%L%P3D_SetAsSmoke%ParticleID"
+8, 	"P3D Set As Rain Particle%L%P3D_SetAsRain%ParticleID"
+9, 	"P3D Set As Snow Particle%L%P3D_SetAsSnow%ParticleID"
+10, 	"P3D Set As Primitive Particle%L%P3D_SetAsPrimitive%ParticleID"
+11, 	"P3D Update Particles%0%P3D_UpdateParticles%"
+12, 	"P3D Get Particle Exist[%LL%P3D_GetParticleExist%ParticleID"
+13, 	"P3D Clear Particles%0%P3D_Clear%"
+14, 	"P3D Delete Particle[%LL%P3D_DeleteParticle%ParticleID"
+15, 	"P3D Get Particle Count[%LL%P3D_GetParticleCount%ParticleID"
+}
+
+
+STRINGTABLE
+{
+16, 	"P3D Get Particle XRange[%LL%P3D_GetParticleXRange%ParticleID"
+17, 	"P3D Get Particle YRange[%LL%P3D_GetParticleYRange%ParticleID"
+18, 	"P3D Get Particle ZRange[%LL%P3D_GetParticleZRange%ParticleID"
+19, 	"P3D Get Particle XPos[%LL%P3D_GetParticleXPosition%ParticleID"
+20, 	"P3D Get Particle YPos[%LL%P3D_GetParticleYPosition%ParticleID"
+21, 	"P3D Get Particle ZPos[%LL%P3D_GetParticleZPosition%ParticleID"
+22, 	"P3D Get Particle Type[%LL%P3D_GetParticleType%ParticleID"
+23, 	"P3D Get Particle Size[%LL%P3D_GetParticleSize%ParticleID"
+24, 	"P3D Get Particle XSpeed[%FL%P3D_GetParticleXPath%ParticleID"
+25, 	"P3D Get Particle YSpeed[%FL%P3D_GetParticleYPath%ParticleID"
+26, 	"P3D Get Particle ZSpeed[%FL%P3D_GetParticleZPath%ParticleID"
+27, 	"P3D Hide Particle%L%P3D_HideParticle%ParticleID"
+28, 	"P3D Show Particle%L%P3D_ShowParticle%ParticleID"
+29, 	"P3D Set As Sparkle Particle%L%P3D_SetAsSparkle%ParticleID"
+30, 	"P3D Set Particle Texture%LL%P3D_SetParticleImage%ParticleID, ImageID"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProParticles3DeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

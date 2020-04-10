@@ -1,0 +1,20 @@
+Rem ****************************************************************************************************
+Function SetupRTSkySystem()
+  Rem Creating Camera #1 to handle Real-Time Sky System
+  CAMERA1 = 0
+  Clear Camera View CAMERA1, Rgb( 0, 0, 0 )
+  Backdrop Off CAMERA1
+  Set Camera View CAMERA1, 0, 0, Bitmap Width( 0 ), Bitmap Height( 0 )
+`  Set Camera Range CAMERA1, 200, 400
+  Rem Preparing Real-Time Sky System
+  RTS Setup Skybox "Medias\RTS_BigCity", CAMERA1
+  RTS Set Clock 18, 0, 0.5
+  RTS Set Wind Speed 0.0001, 0.00005
+  Rem Make Sky System control fog and ambient light.
+  RTS Fog On
+  RTS Fog Color 38, 41, 32
+  RTS Fog Distance 2000
+  Rem Setup virtual light system
+  L3D Set Control Camera 0
+  L3D Set Visibility Range 1024.0
+ EndFunction CAMERA1

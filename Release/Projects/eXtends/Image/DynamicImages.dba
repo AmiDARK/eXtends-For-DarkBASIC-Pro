@@ -1,0 +1,63 @@
+Rem ***************************************************
+Rem *                                                 *
+Rem * DarkBasic Professional Extends TPC Pack Ver 1.0 *
+Rem *                                                 *
+Rem ***************************************************
+Rem Author : Frédéric Cordier - Odyssey-Creators
+Rem Date   : 2008.February.16
+Rem Sample : Dynamic Images Support Demo
+Rem
+Sync On : Sync Rate 60
+AutoCam Off
+Rem
+  Repeat
+    D$ = Inkey$()
+    Rem Depending on which key the user press, we create an object.
+    Select D$
+      Case "q"
+        If Object1 = 0
+           Object1 = IMG Load Image( "Graphics\Image01.jpg" )
+         Endif
+       EndCase
+      Case "w"
+        If Object2 = 0
+           Object2 = IMG Load Image( "Graphics\Image02.jpg", 0 )
+         Endif
+       EndCase
+      Case "e"
+        If Object3 = 0
+           Object3 = IMG Load Image( "Graphics\Image03.jpg", 1 )
+         Endif
+       EndCase
+      Case "r"
+        If Object4 = 0
+           Object4 = IMG Load Image( "Graphics\Image04.jpg", 0 )
+         Endif
+       EndCase
+      Case "t"
+        If Object5 = 0
+           Object5 = IMG Load Image( "Graphics\Image05.jpg", 0 )
+         Endif
+       EndCase
+      Case "a" : Object1 = IMG Delete Image( Object1 ) : EndCase
+      Case "s" : Object2 = IMG Delete Image( Object2 ) : EndCase
+      Case "d" : Object3 = IMG Delete Image( Object3 ) : EndCase
+      Case "f" : Object4 = IMG Delete Image( Object4 ) : EndCase
+      Case "g" : Object5 = IMG Delete Image( Object5 ) : EndCase
+     EndSelect
+    Cls
+    Set Cursor 0, 0
+    Print "Use Q up to T keys to create images"
+    Print "Use A up to G keys to delete them"
+    Print "Image 1 to 5 Exist ?"
+    For XLoop = 1 to 5
+      Print Image Exist( XLoop )
+     Next XLoop
+    If Object1 > 0 Then Paste Image Object1, ( Object1 - 1 ) *64, 128
+    If Object2 > 0 Then Paste Image Object2, ( Object2 - 1 ) *64, 128
+    If Object3 > 0 Then Paste Image Object3, ( Object3 - 1 ) *64, 128
+    If Object4 > 0 Then Paste Image Object4, ( Object4 - 1 ) *64, 128
+    If Object5 > 0 Then Paste Image Object5, ( Object5 - 1 ) *64, 128
+    Sync
+   Until SpaceKey() = 1
+End

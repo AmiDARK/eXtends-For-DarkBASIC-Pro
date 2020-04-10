@@ -1,0 +1,45 @@
+
+STRINGTABLE
+{
+1, 	"SND Initialized[%L%SND_Init%"
+2, 	"SND Clear%0%SND_Clear%"
+3, 	"SND Get Count[%L%SND_Count%"
+4, 	"SND Delete Sound[%LL%SND_Delete%Sound Number"
+5, 	"SND Load Sound[%LS%SND_DynamicLoad%Filename$"
+6, 	"SND Make Sound From Memblock[%LL%SND_MakeSoundFromMemblock%Memblock Number"
+7, 	"SND Load Sound3D[%LS%SND_DynamicLoad3D%Filename$"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProSoundseXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

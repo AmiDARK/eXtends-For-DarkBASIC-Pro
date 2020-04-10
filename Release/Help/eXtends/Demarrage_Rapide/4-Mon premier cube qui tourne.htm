@@ -1,0 +1,37 @@
+<BODY COLOR=black BACKGROUND=gfx/backdrop.jpg BGPROPERTIES=FIXED>
+<FONT FACE=Verdana SIZE=2><FONT SIZE=3><B><FONT SIZE=3> 
+<CENTER>
+  Lesson 2<BR>
+  My first &quot;Dynamic&quot; rotating cube.<BR>
+</CENTER>
+</FONT></B></FONT><BR>
+1. Create a game of a 3D application is a simple question of details adding to 
+the software. Take for example, a simple rotating cube. The steps to create it 
+are to firstly create the cube and than make it slowly rotate all the time.<br>
+<BR>
+<IMG SRC=gfx\lesson5a.jpg width="25%"><BR>
+<BR>
+2. Type the following small program in the editing area from DarkBASIC Professional's 
+editor :<br>
+<PRE><FONT FACE=courier COLOR=BLUE>	<font color="#000000">Null</font> = <b>EXT INITIALIZED</b>()<br>	<font color="#000000">MyCube = <b><font color="#0000FF">B3D MAKE OBJECT CUBE</font></b>( 100 )
+	<font color="#0000FF"><b>DO</b></font>
+	 <font color="#0000FF"><b>YROTATE OBJECT</b></font> MyCube,<b><font color="#0000FF">OBJECT ANGLE Y</font></b>(1)+0.1
+	<font color="#0000FF"><b>LOOP</b></font>
+</font></FONT></PRE>
+3. This program will make a cube rotate indefinitely and slowly. The command B3D 
+MAKE OBJECT CUBE will create dynamically the cube The commands DO and LOOP make 
+the main demonstration loop and the command YROTATE OBJECT apply a new rotation 
+under Y axis to the cube called &quot;MyCube&quot;. You must not forget the function 
+EXT INITIALIZED() because if you don't put it on the beginning of your program, 
+the eXtends plugin will not initialize and you'll probably get an error message 
+saying : <i><b><font color="#CC0000">&quot;DBProExtends\GetDBProBase init failed&quot;</font></b></i> 
+.<br>
+<br>
+<br>
+</FONT><font face=Verdana><font face=Verdana><font face=Verdana><span
+style='font-size:10.0pt;font-family:Verdana'><font face=Verdana><font face=Verdana><font face=Verdana><font face=Verdana>CLIC 
+<a href=..%5CDBE_Main.htm>HERE</a> TO GO BACK TO MAIN MENU</font></font></font></font></span></font></font></font><FONT FACE=Verdana SIZE=2><BR>
+<BR>
+<BR>
+</FONT>
+</BODY>

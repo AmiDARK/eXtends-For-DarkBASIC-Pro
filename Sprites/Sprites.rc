@@ -1,0 +1,48 @@
+
+STRINGTABLE
+{
+1, 	"SPR Initialized[%L%SPR_Init%"
+2, 	"SPR Clear%0%SPR_Clear%"
+3, 	"SPR Get Count[%L%SPR_Count%"
+4, 	"SPR Delete Sprite[%LL%SPR_Delete%ImageNumber"
+5, 	"SPR Sprite[%LLLL%SPR_DynamicSprite%Xpos, YPos, ImageNumber"
+6, 	"SPR Make Animated Sprite[%LSLLL%SPR_DynamicAnimatedSprite%FileName$, Across, Down, ImageNumber"
+7, 	"SPR Prepare Collision%L%PrepareSpriteForCollision%SpriteNumber"
+8, 	"SPR Get Collision[%LLLL%GetSpriteCollision%Sprite1, Sprite2, Mode"
+9, 	"SPR Free Collision%L%FreeSpriteFromCollision%SpriteNumber"
+10, 	"SPR Get Distance[%LLL%GetSpritesDistance%Sprite1, Sprite2"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProSpriteseXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+

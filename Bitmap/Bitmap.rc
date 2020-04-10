@@ -1,0 +1,46 @@
+
+STRINGTABLE
+{
+1, 	"BMP Initialized[%L%BMP_Init%"
+2, 	"BMP Clear All Bitmaps%0%BMP_Clear%"
+3, 	"BMP Exist Bitmap Count[%L%BMP_Count%"
+4, 	"BMP Delete Bitmap[%LL%BMP_Delete%Bitmap Number"
+5, 	"BMP Load Bitmap[%LS%BMP_DynamicLoad%FileName$"
+6, 	"BMP Clone Bitmap[%L%BMP_DynamicClone%Source Bitmap"
+7, 	"BMP Make Bitmap[%LLL%BMP_DynamicMake%Width, Height"
+8, 	"BMP Make Bitmap From Memblock[%LL%BMP_MakeBitmapFromMemblock%Memblock Number"
+}
+
+
+1 VERSIONINFO
+FILEVERSION 1,6,0,0
+PRODUCTVERSION 1,6,0,0
+FILEOS 0x0
+FILETYPE 0x0
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "000004B0"
+	{
+		VALUE "CompanyName", "TheGameCreators"
+		VALUE "ProductName", "eXtends"
+		VALUE "ProductVersion", "1.6"
+		VALUE "FileVersion", "1.6"
+		VALUE "FileDescription", "eXtends System"
+		VALUE "InternalName", "eXtends"
+		VALUE "OriginalFilename", "DBProBitmapeXtends.DLL"
+		VALUE "LegalCopyright", "TheGameCreators"
+		VALUE "LegalTrademarks", "TheGameCreators"
+		VALUE "PrivateBuild", "Public"
+		VALUE "SpecialBuild", "Public"
+		VALUE "Email", ""
+		VALUE "Website", "http://www.TheGameCreators.com"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0000 0x04B0
+}
+}
+
